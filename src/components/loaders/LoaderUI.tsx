@@ -1,5 +1,16 @@
 const LoaderUI = () => {
-  return <div>Loading Ui...</div>;
+  return (
+    <div className="fixed top-1/2 left-1/2">
+      <div className="w-12 h-12 inline-block relative">
+        <span className="absolute content-[''] w-16 h-16 rounded-full animate-puff bg-black"></span>
+        <span
+          className="absolute content-[''] w-16 h-16 rounded-full left-0 top-0 bg-orange-600 animate-puff"
+          style={{
+            animationDelay: `1s`,
+          }}></span>
+      </div>
+    </div>
+  );
 };
 
 export default LoaderUI;

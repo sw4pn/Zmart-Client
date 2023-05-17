@@ -1,50 +1,61 @@
-import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  createAction,
+  createAsyncThunk,
+  createSlice,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import { User } from "../../types";
-import authService from "./authService";
+import axios from "axios";
+import { apiUrl } from "../../config/config";
+import { config } from "../../utils/axiosConfig";
+import { RootState } from "../../app/store";
 
-export const loadUser = createAsyncThunk(
-  "auth/loadUser",
-  async (_, thunkAPI) => {
-    try {
-      return await authService.loadAUser();
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
-    }
-  }
-);
+export const loadUser = createAsyncThunk<User>("auth/loadUser", async () => {
+  const response = await axios.get(`${apiUrl}auth/verify-user`, config);
+  const data = await response.data;
+  return data;
+});
 
-export const resetUser = createAction("RESET_AUTH");
-
-interface initialStateProps {
-  authUser: User | null;
-  authLoading: boolean;
-  authMessage: string | null;
+export interface AuthState {
+  user: User | null;
+  isAuthenticated: boolean;
 }
 
-const initialState: initialStateProps = {
-  authUser: null,
-  authLoading: false,
-  authMessage: null,
+const initialState: AuthState = {
+  user: null,
+  isAuthenticated: false,
 };
+
+export const resetAuthState = createAction("RESET_AUTH");
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    setUser: (state, action: PayloadAction<User>) => {
+      state.user = action.payload;
+      state.isAuthenticated = true;
+    },
+
+    clearUser: (state) => {
+      state.user = null;
+      state.isAuthenticated = false;
+    },
+  },
+
   extraReducers: (builder) => {
     builder
-      .addCase(loadUser.pending, (state) => {
-        state.authLoading = true;
-      })
       .addCase(loadUser.fulfilled, (state, action) => {
-        state.authUser = action.payload;
+        state.user = action.payload;
+        state.isAuthenticated = true;
       })
-      .addCase(loadUser.rejected, (state, action) => {
-        state.authUser = null;
-        state.authMessage =
-          action.payload.error?.message || "Something went wrong";
-      });
+      .addDefaultCase((state) => state);
   },
 });
+
+export const { setUser, clearUser } = authSlice.actions;
+export const selectAuthUser = (state: RootState) => state.auth.user;
+export const selectIsAuthenticated = (state: RootState) =>
+  state.auth.isAuthenticated;
 
 export default authSlice.reducer;
