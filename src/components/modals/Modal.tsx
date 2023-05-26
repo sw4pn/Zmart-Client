@@ -1,8 +1,11 @@
 import { FC, useCallback, useEffect, useState } from "react";
 import Button from "../ui/Button";
+import CustomButton from "../ui/CustomButton";
+import { IoMdClose } from "react-icons/io";
 
 interface ModalProps {
   isOpen?: boolean;
+  type?: "button" | "submit" | "reset" | undefined;
   onClose: () => void;
   onSubmit: () => void;
   title?: string;
@@ -10,12 +13,14 @@ interface ModalProps {
   footer?: React.ReactElement;
   actionLabel: string;
   disabled?: boolean;
+  loading?: boolean;
   secondaryAction?: () => void;
   secondaryActionLabel?: string;
 }
 
 const Modal: FC<ModalProps> = ({
   isOpen,
+  type = "button",
   onClose,
   onSubmit,
   title,
@@ -25,6 +30,7 @@ const Modal: FC<ModalProps> = ({
   actionLabel,
   secondaryActionLabel,
   disabled,
+  loading,
 }) => {
   const [showModal, setShowModal] = useState(isOpen);
 
@@ -65,7 +71,7 @@ const Modal: FC<ModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none bg-neutral-800/70">
-      <div className="relative w-full h-full mx-auto my-6 md:w-4/6 lg:w-3/6 xl:w-2/5 lg:h-auto md:h-auto">
+      <div className="relative  w-full h-full mx-auto my-6 md:w-4/6 lg:w-3/6 xl:w-2/5 lg:h-auto md:h-auto">
         {/*content*/}
         <div
           className={`h-full translate duration-300 ${
@@ -74,17 +80,14 @@ const Modal: FC<ModalProps> = ({
           <div className="relative flex flex-col w-full h-full bg-white  border-0 rounded-lg shadow-lg outline-none translate lg:h-auto md:h-auto focus:outline-none">
             {/* header */}
             <div
-              className="flex 
-                items-center 
-                p-6
-                rounded-t
+              className="flex  items-center  p-6 rounded-t
                 justify-center
                 relative
                 border-b-[1px]">
               <button
-                className="absolute p-1 transition border-0 hover:opacity-70 left-9"
+                className="absolute p-1 transition border-0 hover:opacity-70 right-9"
                 onClick={handleClose}>
-                {/* <IoMdClose size={18} /> */}X Close
+                <IoMdClose size={24} />
               </button>
 
               <div className="text-lg font-semibold">{title}</div>
@@ -95,16 +98,18 @@ const Modal: FC<ModalProps> = ({
             <div className="flex flex-col gap-2 p-6">
               <div className="flex flex-row items-center w-full gap-4 ">
                 {secondaryAction && secondaryActionLabel && (
-                  <Button
+                  <CustomButton
                     disabled={disabled}
-                    label={secondaryActionLabel}
+                    title={secondaryActionLabel}
                     onClick={handleSecondaryAction}
                     outline
                   />
                 )}
-                <Button
+                <CustomButton
+                  type={type}
+                  loading={loading}
                   disabled={disabled}
-                  label={actionLabel}
+                  title={actionLabel}
                   onClick={handleSubmit}
                 />
               </div>

@@ -1,3 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Rubik:wght@300;400;500;600;700;800;900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: "Montserrat", "Lucida Sans", "Lucida Sans Regular",
+    "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.custom-input input:not(:placeholder-shown) ~ label {
+  @apply transform;
+  @apply scale-75;
+  @apply -translate-y-6;
+}
+.custom-textarea textarea:not(:placeholder-shown) ~ label {
+  @apply transform;
+  @apply scale-75;
+  @apply -translate-y-8;
+}
+
+/*
+
+input:focus ~ label {
+  @apply text-black;
+  @apply left-0;
+} */

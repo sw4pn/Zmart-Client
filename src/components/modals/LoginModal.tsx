@@ -1,19 +1,66 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Modal from "./Modal";
 import useLoginModal from "../../hooks/modals/useLoginModal";
 import useRegisterModal from "../../hooks/modals/useRegisterModal";
-import Button from "../ui/Button";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import CustomButton from "../ui/CustomButton";
+import CustomInput from "../ui/CustomInput";
+import { AuthState, loginUser } from "../../features/auth/authSlice";
+import { RootState } from "../../app/store";
+import { toast } from "react-hot-toast";
+
+const schema = yup.object().shape({
+  email: yup.string().required("Required").email("Invalid email id"),
+  password: yup
+    .string()
+    .required("Required")
+    .min(6, "Too short!")
+    .max(50, "Too long!"),
+});
 
 const LoginModal = () => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch<any>();
 
-  const handleSubmit = () => {
-    //
-  };
+  const authState = useSelector<RootState, AuthState>((state) => state.auth);
+
+  const {
+    user,
+    isAuthenticated,
+    authSuccess,
+    authError,
+    authMessage,
+    authLoading,
+  } = authState;
+
+  useEffect(() => {
+    if (!authLoading && authSuccess && user) {
+      toast.success(authMessage);
+      //TODO: handle login route
+    }
+    if (!authLoading && authError) {
+      toast.error(authMessage);
+    }
+    formik.setSubmitting(false);
+  }, [authLoading, authSuccess, authError, user]);
+
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: schema,
+
+    onSubmit: (values) => {
+      dispatch(loginUser(values));
+    },
+  });
 
   const onToggle = useCallback(() => {
     loginModal.onClose();
@@ -22,33 +69,55 @@ const LoginModal = () => {
 
   const bodyContent = (
     <>
-      <div className="flex flex-col">
-        <h2>Welcome back </h2>
-        <h3>Login to your account!</h3>
-      </div>
+      <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
+        <div className="mb-8">
+          <h2 className="text-lg">Welcome back </h2>
+          <p className="text-gray-400">Login to your account!</p>
+          {authMessage && (
+            <div className="py-1 text-center text-neutral-400">
+              {authMessage}
+            </div>
+          )}
+        </div>
+        <CustomInput
+          id="email"
+          label="Email"
+          value={formik.values.email}
+          onChange={formik.handleChange("email")}
+          errors={formik.touched.email && formik.errors.email}
+        />
+        <CustomInput
+          id="password"
+          label="Password"
+          type="password"
+          value={formik.values.password}
+          onChange={formik.handleChange("password")}
+          errors={formik.touched.password && formik.errors.password}
+        />
+      </form>
     </>
   );
 
   const footerContent = (
     <>
-      <Button
+      <CustomButton
         outline
-        label="Continue with Google"
+        title="Continue with Google"
         icon={FcGoogle}
-        // onClick={() => signIn("google")}
+        onClick={() => console.log("google")}
       />
-      <Button
+      <CustomButton
         outline
-        label="Continue with Github"
+        title="Continue with Github"
         icon={AiFillGithub}
-        // onClick={() => signIn("github")}
+        onClick={() => console.log("github")}
       />
       <div className="mt-4 font-light text-center text-neutral-500">
         <p>
-          First time using Airbnb?
+          First time using ZMart?
           <span
             onClick={onToggle}
-            className="cursor-pointer text-neutral-800 hover:underline">
+            className="ml-2 cursor-pointer text-neutral-800 hover:underline">
             Create an account
           </span>
         </p>
@@ -58,12 +127,13 @@ const LoginModal = () => {
 
   return (
     <Modal
-      disabled={isLoading}
+      loading={formik.isSubmitting}
+      disabled={formik.isSubmitting}
       isOpen={loginModal.isOpen}
       title="Login"
       actionLabel="Continue"
       onClose={loginModal.onClose}
-      onSubmit={handleSubmit}
+      onSubmit={formik.handleSubmit}
       body={bodyContent}
       footer={footerContent}
     />

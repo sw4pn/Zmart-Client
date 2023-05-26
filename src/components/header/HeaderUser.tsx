@@ -20,16 +20,20 @@ const HeaderUser = () => {
       {isAuthenticated && user ? (
         <>
           <span className="pointer-events-none">Hello,</span>
-          <Link to="/my-account" className="capitalize">
+          <Link to="/my-account" className="capitalize hover:opacity-60">
             {user.firstName}
           </Link>
         </>
       ) : (
         <>
-          <div onClick={loginModal.onOpen} className="cursor-pointer">
+          <div
+            onClick={loginModal.onOpen}
+            className="cursor-pointer hover:opacity-60">
             Login
           </div>
-          <div onClick={registerModal.onOpen} className="cursor-pointer">
+          <div
+            onClick={registerModal.onOpen}
+            className="cursor-pointer hover:opacity-60">
             Register
           </div>
           <LoginModal />

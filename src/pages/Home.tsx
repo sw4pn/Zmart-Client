@@ -1,33 +1,58 @@
+import BigCards from "../components/BigCards";
+import BrandList from "../components/BrandList";
+import CategoryList from "../components/CategoryList";
+import FeaturedList from "../components/FeaturedList";
+import FeaturesList from "../components/FeaturesList";
 import HeroSection from "../components/HeroSection";
+import PopularList from "../components/PopularList";
+import SpecialList from "../components/SpecialList";
+import ThreeBanners from "../components/ThreeBanners";
+import Spacer from "../components/helpers/Spacer";
+import Container from "../components/layouts/Container";
 
 const Home = () => {
   return (
     <>
-      {/* Hero Section */}
-      <HeroSection />
+      <Container className="">
+        {/* Hero Section */}
+        <div className="">
+          <HeroSection />
+        </div>
 
-      {/* Featured Categories */}
-      <div className="">
-        <h2>Featured Categories</h2>
-        <div className="">Categories</div>
-      </div>
-
-      {/* Special Products */}
-      <div className="">
-        <h2>Special Categories</h2>
-        <div className="">Special products</div>
-      </div>
-
-      {/* Features */}
-      <div className="">
-        <div className=""> f e a t u r e s </div>
-      </div>
-
-      {/* Special Products */}
-      <div className="">
-        <h2>Special Categories</h2>
-        <div className="">Special products</div>
-      </div>
+        {/* Three Banners */}
+        <div className="flex items-center justify-center py-10 ">
+          <ThreeBanners />
+        </div>
+        {/* Featured Categories */}
+        <div className="flex items-center justify-center py-10 ">
+          <CategoryList />
+        </div>
+        {/* Features */}
+        <div className="py-10 bg-neutral-100">
+          <FeaturesList />
+        </div>
+        {/* Special Products */}
+        <div className="py-10">
+          <SpecialList />
+        </div>
+        {/* BigCards */}
+        <div className="py-10">
+          <BigCards />
+        </div>
+        {/* Featured Products */}
+        <div className="py-10">
+          <FeaturedList />
+        </div>
+        {/* Brands */}
+        <div className="py-10">
+          <BrandList />
+        </div>
+        {/* Popular Products */}
+        <div className="py-10 bg-neutral-100">
+          <PopularList />
+        </div>
+      </Container>
+      <Spacer size={150} className="bg-neutral-100" />
     </>
   );
 };

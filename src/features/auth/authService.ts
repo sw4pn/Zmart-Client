@@ -8,6 +8,8 @@ const loadAUser = async () => {
   return response.data;
 };
 
+
+
 const authService = {
   loadAUser,
 };

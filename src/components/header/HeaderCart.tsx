@@ -14,10 +14,16 @@ const HeaderCart = () => {
     : ``;
 
   return (
-    <Link to="/cart" className="flex justify-center items-center relative">
-      <AiOutlineShoppingCart size={32} />
-      <span className="">{no}</span>
-      <div className="hidden lg:flex lg:flex-col">
+    <Link
+      to="/cart"
+      className="relative flex items-center justify-center gap-4 hover:opacity-70">
+      <div className="relative">
+        <AiOutlineShoppingCart size={32} />
+        <span className="absolute p-1 text-xs rounded-full bg-neutral-500 -right-2 -top-3">
+          {no}
+        </span>
+      </div>
+      <div className="hidden lg:flex lg:flex-col ">
         <span>Cart</span>
         <span>{cartPrice}</span>
       </div>
