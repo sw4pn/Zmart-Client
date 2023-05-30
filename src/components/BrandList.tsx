@@ -1,7 +1,40 @@
-import React from "react";
+import Marquee from "react-fast-marquee";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../app/store";
+import { brandState, getBrands } from "../features/brand/brandSlice";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const BrandList = () => {
-  return <div>BrandList</div>;
+  const dispatch: any = useDispatch();
+  const brandState = useSelector<RootState, brandState>((state) => state.brand);
+
+  useEffect(() => {
+    dispatch(getBrands());
+  }, []);
+
+  const brandArr = Object.values(brandState.brands).map((value) => value);
+
+  const brandList = brandArr.map((brand, i) => {
+    return (
+      <Link to={`/brand/${brand.slug}`} key={i}>
+        <div className="h-24 p-2 mx-8 overflow-hidden">
+          <img
+            className="w-full h-full hover:scale-110"
+            src={brand.imageUrl}
+            alt={brand.title}
+          />
+        </div>
+      </Link>
+    );
+  });
+
+  return (
+    <div className="p-2 mx-2 bg-gray-50 rounded-xl">
+      <h2 className="text-center text-gray-400"> Supported Brands </h2>
+      <Marquee speed={20}>{brandList}</Marquee>
+    </div>
+  );
 };
 
 export default BrandList;

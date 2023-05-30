@@ -4,3 +4,11 @@ export const config = {
     Accept: "application/json",
   },
 };
+
+export const fileConfig = {
+  withCredentials: true,
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "multipart/form-data",
+  },
+};

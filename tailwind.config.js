@@ -22,6 +22,7 @@ export default {
         rotate: `rotation 1s linear infinite`,
         fade: `fade 1.5s `,
         pause: `pause 0.5s `,
+        loading: `loading 1.2s ease-in-out infinite`,
       },
       keyframes: {
         "anim-loader": {
@@ -41,6 +42,10 @@ export default {
         pause: {
           "0%": { opacity: 0.2 },
           "90%": { opacity: 1 },
+        },
+        loading: {
+          "0%": { "background-position": `100% 50%` },
+          "100%": { "background-position": `0% 50%` },
         },
       },
     },

@@ -5,7 +5,7 @@ import LoaderRing from "../loaders/LoaderRing";
 interface ButtonProps {
   title: string;
   type?: "button" | "submit" | "reset" | undefined;
-  onClick: () => void;
+  onClick?: () => void;
   disabled?: boolean;
   outline?: boolean;
   small?: boolean;

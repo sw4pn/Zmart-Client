@@ -1,5 +1,5 @@
 import { FC, useCallback, useEffect, useState } from "react";
-import Button from "../ui/Button";
+
 import CustomButton from "../ui/CustomButton";
 import { IoMdClose } from "react-icons/io";
 

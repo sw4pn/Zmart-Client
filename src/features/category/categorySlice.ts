@@ -1,6 +1,7 @@
 import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Category } from "../../types";
 import categoryService from "./categoryService";
+import { RootState } from "../../app/store";
 
 // export const registerUser = createAsyncThunk<
 //   User,
@@ -111,5 +112,9 @@ export const categorySlice = createSlice({
       .addCase(resetCategoryState, () => initialState);
   },
 });
+
+export const selectCategoryState = (state: RootState) => state.category;
+export const selectCategories = (state: RootState) => state.category.categories;
+export const selectCategory = (state: RootState) => state.category.category;
 
 export default categorySlice.reducer;

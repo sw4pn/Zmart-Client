@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { HiOutlinePhone, HiOutlineUser } from "react-icons/hi";
+import {  HiOutlineUser } from "react-icons/hi";
 import HeaderSearch from "./header/HeaderSearch";
 import HeaderCart from "./header/HeaderCart";
 import HeaderSelect from "./header/HeaderSelect";

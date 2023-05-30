@@ -1,25 +1,33 @@
 import { FC } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { categoryState } from "../../features/category/categorySlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useLoginModal from "../../hooks/modals/useLoginModal";
 import useRegisterModal from "../../hooks/modals/useRegisterModal";
 import LoginModal from "../modals/LoginModal";
 import RegisterModal from "../modals/RegisterModal";
+import { logout } from "../../features/auth/authSlice";
 
-import {
-  selectAuthUser,
-  selectIsAuthenticated,
-} from "../../features/auth/authSlice";
+import { selectIsAuthenticated } from "../../features/auth/authSlice";
+import { toast } from "react-hot-toast";
 interface Props {
   show: boolean;
   toggle: () => void;
 }
 
 const Menu: FC<Props> = ({ show, toggle }) => {
+  const dispatch: any = useDispatch();
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
+  const navigate = useNavigate();
+
+  const logoutMe = () => {
+    dispatch(logout()).then(() => {
+      toast.success("You are successfully logged out.");
+      navigate("/");
+    });
+  };
 
   const isAuthenticated = useSelector(selectIsAuthenticated);
   // const user = useSelector(selectAuthUser);
@@ -51,12 +59,19 @@ const Menu: FC<Props> = ({ show, toggle }) => {
         </div>
         <ul>
           {isAuthenticated ? (
-            <li
-              className="py-1 text-lg font-semibold cursor-pointer text-neutral-600 font-rubik hover:opacity-70"
-              // onClick={loginModal.onOpen}
-            >
-              <Link to="/my-account">My Account</Link>
-            </li>
+            <>
+              <li
+                className="py-1 text-lg font-semibold cursor-pointer text-neutral-600 font-rubik hover:opacity-70"
+                // onClick={loginModal.onOpen}
+              >
+                <Link to="/my-account">My Account</Link>
+              </li>
+              <li
+                className="py-1 text-lg font-semibold cursor-pointer text-neutral-600 font-rubik hover:opacity-70"
+                onClick={logoutMe}>
+                Logout
+              </li>
+            </>
           ) : (
             <>
               <li

@@ -35,7 +35,10 @@ export const AccordionItemContext = createContext<AccordionItemStore>({
 });
 
 export interface Props {
-  children: JSX.Element | JSX.Element[];
+  children:
+    | JSX.Element
+    | JSX.Element[]
+    | (({ open }: { open: boolean }) => JSX.Element | null);
   //    | Function;
   className?: string;
   isActive?: boolean;
@@ -75,7 +78,9 @@ const AccordionItem: FC<Props> = ({
 
   return (
     <AccordionItemContext.Provider value={value}>
-      <div className={`${className}`}>{children}</div>
+      <div className={`${className}`}>
+        {typeof children === "function" ? children({ open: active }) : children}
+      </div>
     </AccordionItemContext.Provider>
   );
 };

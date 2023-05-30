@@ -4,8 +4,7 @@ import {
   getPopularProducts,
   productState,
 } from "../features/product/productSlice";
-import { useEffect } from "react";
-import { Product } from "../types";
+import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 
 const PopularList = () => {

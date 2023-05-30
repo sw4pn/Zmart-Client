@@ -5,8 +5,6 @@ import Modal from "./Modal";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import CustomInput from "../ui/CustomInput";
-import Button from "../ui/Button";
-import CustomButton from "../ui/CustomButton";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser, userState } from "../../features/user/userSlice";
 import { RootState } from "../../app/store";

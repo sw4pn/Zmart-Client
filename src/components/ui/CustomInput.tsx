@@ -1,7 +1,7 @@
 import { FC, HTMLInputTypeAttribute } from "react";
 import { FormikErrors } from "formik/dist/types";
 
-interface Props {
+interface Props extends React.HTMLProps<HTMLInputElement> {
   id: string;
   label: string;
   type?: string;
@@ -9,8 +9,8 @@ interface Props {
   formatPrice?: boolean;
   required?: boolean;
   className?: string;
-  value?: string;
-  onChange?: (event: any) => void;
+  value?: string | number;
+  autoComplete?: string;
   //   register: UseFormRegister<FieldValues>;
   errors?: string | false | undefined;
 }
@@ -21,17 +21,20 @@ const CustomInput: FC<Props> = ({
   type = "text",
   className = "",
   errors,
+  disabled,
   ...rest
 }) => {
   return (
     <div
-      className={`relative w-full z-0 mb-8 max-w-xl custom-input ${className}`}>
+      className={`relative w-full z-0 mb-8 max-w-xl custom-input 
+      ${disabled ? "bg-neutral-200/50" : ""} ${className}`}>
       <input
         {...rest}
+        disabled={disabled}
         id={id}
         type={type}
         placeholder=" "
-        className={`block w-full px-0 pt-3 pb-2 mt-0 bg-transparent border-0 border-b-2  appearance-none focus:outline-none focus:ring-0 focus:border-black peer
+        className={`block w-full px-2 pt-3 pb-2 mt-0 bg-transparent border-0 border-b-2  appearance-none focus:outline-none focus:ring-0 focus:border-black peer
         ${errors ? "border-rose-400" : "border-gray-200"}
         `}
       />
