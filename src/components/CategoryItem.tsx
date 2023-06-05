@@ -22,7 +22,9 @@ const text = {
 const CategoryItem: FC<Props> = ({ category }) => {
   return (
     <motion.div whileHover="hover" className=" flex-0   group hover:   ">
-      <Link to="/" className="flex flex-col justify-between items-center">
+      <Link
+        to={`/category/${category?.slug}`}
+        className="flex flex-col justify-between items-center">
         <div className="items-center flex justify-center h-24 w-24  overflow-hidden cursor-pointer ">
           <motion.img
             variants={child}

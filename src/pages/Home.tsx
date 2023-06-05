@@ -3,6 +3,7 @@ import BrandList from "../components/BrandList";
 import CategoryList from "../components/CategoryList";
 import FeaturedList from "../components/FeaturedList";
 import FeaturesList from "../components/FeaturesList";
+import Heading from "../components/Heading";
 import HeroSection from "../components/HeroSection";
 import PopularList from "../components/PopularList";
 import SpecialList from "../components/SpecialList";
@@ -20,9 +21,9 @@ const Home = () => {
         </div>
 
         {/* Three Banners */}
-        <div className="flex items-center justify-center py-10 ">
+        {/* <div className="flex items-center justify-center py-10 ">
           <ThreeBanners />
-        </div>
+        </div> */}
         {/* Featured Categories */}
         <div className="flex items-center justify-center py-10 ">
           <CategoryList />
@@ -33,6 +34,7 @@ const Home = () => {
         </div>
         {/* Special Products */}
         <div className="py-10">
+          <Heading title="Special  Products" className="text-center" />
           <SpecialList />
         </div>
         {/* BigCards */}
@@ -40,15 +42,16 @@ const Home = () => {
           <BigCards />
         </div>
         {/* Featured Products */}
-        <div className="py-10">
+        {/* <div className="py-10">
           <FeaturedList />
-        </div>
+        </div> */}
         {/* Brands */}
-        <div className="py-10">
+        <div className="py-10 bg-neutral-100">
           <BrandList />
         </div>
         {/* Popular Products */}
         <div className="py-10 bg-neutral-100">
+          <Heading title="Popular Products" />
           <PopularList />
         </div>
       </Container>

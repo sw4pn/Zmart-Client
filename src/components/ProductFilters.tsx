@@ -14,7 +14,8 @@ const ProductFilters = ({ handleFilter }: Props) => {
     ? color
     : color !== null
     ? color.split(",")
-    : [];
+    : [];  
+
 
   // const searchColor = searchParams.get("colors");
   const searchBrand = searchParams.get("brand");

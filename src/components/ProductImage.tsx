@@ -50,7 +50,7 @@ const ProductImage: FC<Props> = ({ images, loading }) => {
     <div className="border select-none">
       {!loading && images ? (
         <>
-          <div className=" h-[400px] lg:h-[512px]  max-w-[400px] lg:max-w-[512px]  mx-auto flex flex-col justify-between gap-4">
+          <div className="  mx-auto flex flex-col justify-between gap-4  ">
             <AnimatePresence initial={false} mode="wait">
               <motion.img
                 src={images[index].url}
@@ -60,8 +60,9 @@ const ProductImage: FC<Props> = ({ images, loading }) => {
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: -1000, opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                className=" w-full h-full object-contain p-2  lg:p-4"
+                className=" w-full h-[400px] lg:h-[500px] object-center object-contain p-2  lg:p-4"
               />
+              {/*  h-[400px] lg:h-[512px]  max-w-[400px] lg:max-w-[512px] */}
             </AnimatePresence>
 
             <div className="flex items-center justify-center w-full gap-4 px-2">

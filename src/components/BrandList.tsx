@@ -18,9 +18,9 @@ const BrandList = () => {
   const brandList = brandArr.map((brand, i) => {
     return (
       <Link to={`/brand/${brand.slug}`} key={i}>
-        <div className="h-24 p-2 mx-8 overflow-hidden">
+        <div className="h-24 p-2 mx-8 overflow-hidden border w-36">
           <img
-            className="w-full h-full hover:scale-110"
+            className="object-contain w-full h-full p-1 hover:bg-neutral-100 hover:scale-110"
             src={brand.imageUrl}
             alt={brand.title}
           />

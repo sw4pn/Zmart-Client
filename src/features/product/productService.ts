@@ -44,6 +44,37 @@ const getAllProducts = async () => {
   return response.data;
 };
 
+const addReview = async (id, data) => {
+  const response = await axios.put(
+    `${apiUrl}products/add-review/${id}`,
+    data,
+    config
+  );
+
+  return response.data;
+};
+
+const updateReview = async (id, data) => {
+  const response = await axios.put(
+    `${apiUrl}products/update-review/${id}`,
+    data,
+    config
+  );
+
+  return response.data;
+};
+
+const deleteReview = async (id, data) => {
+  
+  const response = await axios.put(
+    `${apiUrl}products/delete-review/${id}`,
+    data,
+    config
+  );
+
+  return response.data;
+};
+
 const productService = {
   popularProducts,
   featuredProducts,
@@ -52,6 +83,9 @@ const productService = {
   productByCategory,
   productByBrand,
   getAllProducts,
+  addReview,
+  updateReview,
+  deleteReview,
 };
 
 export default productService;

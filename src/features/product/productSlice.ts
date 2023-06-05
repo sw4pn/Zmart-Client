@@ -1,6 +1,6 @@
 import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import productService from "./productService";
-import { Product } from "../../types";
+import { Product, Review } from "../../types";
 import { RootState } from "../../app/store";
 
 export const getPopularProducts = createAsyncThunk(
@@ -67,6 +67,50 @@ export const getProductByBrand = createAsyncThunk<
 >("products/brand", async (id, thunkAPI) => {
   try {
     return await productService.productByBrand(id);
+  } catch (err: any) {
+    return thunkAPI.rejectWithValue(err.response.data);
+  }
+});
+
+interface ReviewType extends Review {
+  id: string;
+  reviewId: string;
+}
+
+export const addReview = createAsyncThunk<
+  Product,
+  ReviewType,
+  { rejectValue: string }
+>("review/add", async (data, thunkAPI) => {
+  try {
+    const { id, ...restData } = data;
+    return await productService.addReview(id, restData);
+  } catch (err: any) {
+    return thunkAPI.rejectWithValue(err.response.data);
+  }
+});
+
+export const updateReview = createAsyncThunk<
+  Product,
+  ReviewType,
+  { rejectValue: string }
+>("review/update", async (data, thunkAPI) => {
+  try {
+    const { id, ...restData } = data;
+    return await productService.updateReview(id, restData);
+  } catch (err: any) {
+    return thunkAPI.rejectWithValue(err.response.data);
+  }
+});
+
+export const deleteReview = createAsyncThunk<
+  Product,
+  ReviewType,
+  { rejectValue: string }
+>("review/delete", async (data, thunkAPI) => {
+  try {
+    const { id, ...restData } = data;
+    return await productService.deleteReview(id, restData);
   } catch (err: any) {
     return thunkAPI.rejectWithValue(err.response.data);
   }
@@ -254,6 +298,72 @@ export const productSlice = createSlice({
           ? data?.response?.data?.message
           : data?.message;
         state.products = [];
+        state.productError = true;
+        state.productLoading = false;
+        state.productSuccess = false;
+        state.productMessage = message;
+      })
+      .addCase(addReview.pending, (state) => {
+        state.productLoading = true;
+      })
+      .addCase(addReview.fulfilled, (state, action) => {
+        const data: any = action.payload;
+        const { message, success, ...restData } = data;
+        state.product = restData;
+        state.productLoading = false;
+        state.productSuccess = success ? success : true;
+        state.productError = false;
+        state.productMessage = message;
+      })
+      .addCase(addReview.rejected, (state, action) => {
+        const data: any = action.payload;
+        const message = data?.response?.data?.message
+          ? data?.response?.data?.message
+          : data?.message;
+        state.productError = true;
+        state.productLoading = false;
+        state.productSuccess = false;
+        state.productMessage = message;
+      })
+      .addCase(updateReview.pending, (state) => {
+        state.productLoading = true;
+      })
+      .addCase(updateReview.fulfilled, (state, action) => {
+        const data: any = action.payload;
+        const { message, success, ...restData } = data;
+        state.product = restData;
+        state.productLoading = false;
+        state.productSuccess = success ? success : true;
+        state.productError = false;
+        state.productMessage = message;
+      })
+      .addCase(updateReview.rejected, (state, action) => {
+        const data: any = action.payload;
+        const message = data?.response?.data?.message
+          ? data?.response?.data?.message
+          : data?.message;
+        state.productError = true;
+        state.productLoading = false;
+        state.productSuccess = false;
+        state.productMessage = message;
+      })
+      .addCase(deleteReview.pending, (state) => {
+        state.productLoading = true;
+      })
+      .addCase(deleteReview.fulfilled, (state, action) => {
+        const data: any = action.payload;
+        const { message, success, ...restData } = data;
+        state.product = restData;
+        state.productLoading = false;
+        state.productSuccess = success ? success : true;
+        state.productError = false;
+        state.productMessage = message;
+      })
+      .addCase(deleteReview.rejected, (state, action) => {
+        const data: any = action.payload;
+        const message = data?.response?.data?.message
+          ? data?.response?.data?.message
+          : data?.message;
         state.productError = true;
         state.productLoading = false;
         state.productSuccess = false;

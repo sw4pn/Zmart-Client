@@ -6,6 +6,7 @@ import {
   getCategories,
 } from "../../features/category/categorySlice";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface Option {
   value: string;
@@ -14,6 +15,7 @@ interface Option {
 
 const HeaderSelect = () => {
   const dispatch: any = useDispatch();
+  const navigate = useNavigate();
 
   const categoryState = useSelector<RootState, categoryState>(
     (state) => state.category
@@ -30,8 +32,18 @@ const HeaderSelect = () => {
       }))
     : [];
 
+  // Add the new element at the first position in categoryArr
+  categoryArr.unshift({
+    label: "All categories",
+    value: "all",
+  });
+
   const selectCategory = (val: SingleValue<Option>) => {
-    console.log(val);
+    if (val?.value === "all") {
+      navigate("/products/all");
+    } else {
+      navigate(`/category/${val?.value}`);
+    }
   };
 
   const options: Option[] = categoryArr;

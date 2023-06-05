@@ -8,7 +8,6 @@ import ContactPage from "../pages/ContactPage";
 import TermsPage from "../pages/TermsPage";
 import FaqPage from "../pages/FaqPage";
 import ProductsPage from "../pages/ProductsPage";
-import CategoriesPage from "../pages/CategoriesPage";
 import ProductPage from "../pages/ProductPage";
 import CartPage from "../pages/CartPage";
 import WishlistPage from "../pages/WishlistPage";
@@ -20,6 +19,8 @@ import AccountDetails from "../pages/AccountDetails";
 import AccountSettings from "../pages/AccountSettings";
 import ChangePass from "../pages/ChangePass";
 import AccountEdit from "../pages/AccountEdit";
+import Checkout from "../pages/Checkout";
+import PaymentPage from "../pages/PaymentPage";
 
 const MainRoutes = () => {
   return (
@@ -53,6 +54,8 @@ const MainRoutes = () => {
             </Route>
             <Route path="order/:id" element={<OrderPage />} />
             <Route path="orders" element={<OrdersPage />} />
+            <Route path="checkout" element={<Checkout />} />
+            <Route path="payment/:id" element={<PaymentPage />} />
           </Route>
           {/* 
             <Route path="checkout" element={<Checkout />} />

@@ -6,21 +6,21 @@ const data = [
     caption: ` `,
   },
   {
-    image: "/images/slide_mouse.jpg",
+    image: "/images/slide_tv.jpg",
     isLink: true,
-    link: "/mouse",
-    caption: "<Link to='/mouse'>SHOP NOW</Link>",
+    link: "/products/all?brand=sony",
+    caption: "<Link to='/mouse'>BROWS NOW</Link>",
   },
   {
     image: "/images/slide_music.webp",
     isLink: true,
-    link: "/music",
+    link: "/category/headphones",
     caption: "<Link to='/music'>SHOP NOW</Link>",
   },
   {
     image: "/images/slide_smartphones.jpg",
     isLink: true,
-    link: "/smartphones",
+    link: "/category/smart-phones",
     caption: "<Link to='/smart-phones'>SHOP NOW</Link>",
   },
   {
@@ -30,8 +30,6 @@ const data = [
 ];
 
 const HeroSection = () => {
-  // const imgArr = images.map((image) => image.url);
-
   return (
     <>
       <Carousel
@@ -43,7 +41,8 @@ const HeroSection = () => {
         width={1536}
         height={400}
         dots={true}
-        slideImageFit="cover"
+        slideImageFit="contain"
+        slideBackgroundColor="transparent"
       />
     </>
   );

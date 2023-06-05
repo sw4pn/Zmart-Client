@@ -20,9 +20,10 @@ import useRegisterModal from "../hooks/modals/useRegisterModal";
 
 interface Props {
   product: Product;
+  className?: string;
 }
 
-const SpecialCard: FC<Props> = ({ product }) => {
+const SpecialCard: FC<Props> = ({ product, className }) => {
   const [reload, setReload] = useState(false);
   const dispatch: any = useDispatch();
   const loginModal = useLoginModal();
@@ -94,9 +95,12 @@ const SpecialCard: FC<Props> = ({ product }) => {
     }
   };
 
+  // <div className="relative flex flex-col w-3/4 bg-white border group sm:max-w-sm sm:flex-row">
+  // carousel-item text-center relative w-64 h-64 snap-start
   return (
-    <>
-      <div className="relative flex flex-col w-3/4 bg-white border group sm:max-w-sm sm:flex-row">
+    <div className="relative text-center bg-white border group sm:max-w-sm ">
+      <div className="flex flex-col bg-white border group sm:flex-row">
+        {/* <div className="w-96"> */}
         <div className="flex-1 p-2 overflow-hidden">
           <img
             src={thumbnail?.url}
@@ -151,14 +155,15 @@ const SpecialCard: FC<Props> = ({ product }) => {
             )}
           </div>
         </div>
+        {!user && (
+          <>
+            <LoginModal />
+            <RegisterModal />
+          </>
+        )}
+        {/* </div> */}
       </div>
-      {!user && (
-        <>
-          <LoginModal />
-          <RegisterModal />
-        </>
-      )}
-    </>
+    </div>
   );
 };
 

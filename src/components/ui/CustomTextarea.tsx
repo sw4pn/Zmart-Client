@@ -1,3 +1,4 @@
+import { FormikErrors } from "formik";
 import { FC } from "react";
 interface Props {
   id: string;
@@ -7,7 +8,13 @@ interface Props {
   cols?: number;
   value?: string;
   onChange?: (event: any) => void;
-  errors?: string | false | undefined;
+  errors?:
+    | FormikErrors<any>[]
+    | FormikErrors<any>
+    | string[]
+    | string
+    | false
+    | undefined;
 }
 
 const CustomTextarea: FC<Props> = ({
@@ -39,7 +46,7 @@ const CustomTextarea: FC<Props> = ({
         />
         <label
           htmlFor={id}
-          className={`absolute duration-300 top-4 left-2 -z-1 origin-0 peer-focus:text-black peer-focus:left-0 peer-focus:transform peer-focus:scale-75 peer-focus:-translate-y-8 ${
+          className={`absolute duration-300 top-2 left-2 -z-1 origin-0 peer-focus:text-black peer-focus:left-0 peer-focus:transform peer-focus:scale-75 peer-focus:-translate-y-8 ${
             errors ? "text-rose-500" : "text-gray-500"
           }`}>
           {errors && "*"} {label}

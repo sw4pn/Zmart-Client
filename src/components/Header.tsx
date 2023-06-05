@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import {  HiOutlineUser } from "react-icons/hi";
+import { HiOutlineUser } from "react-icons/hi";
 import HeaderSearch from "./header/HeaderSearch";
 import HeaderCart from "./header/HeaderCart";
 import HeaderSelect from "./header/HeaderSelect";
@@ -7,6 +7,8 @@ import HeaderUser from "./header/HeaderUser";
 import Navigation from "./navigation/Navigation";
 import Spacer from "./helpers/Spacer";
 import Container from "./layouts/Container";
+import HeaderOrders from "./header/HeaderOrders";
+import HeaderWishlist from "./header/HeaderWishlist";
 
 const Header = () => {
   return (
@@ -27,7 +29,7 @@ const Header = () => {
               <HeaderSearch />
             </div>
 
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex items-center justify-center gap-5">
               {/* <div className="hidden lg:flex lg:justify-center lg:items-center">
               <HiOutlinePhone size={28} />
               <div className="pointer-events-none lg:flex lg:flex-col">
@@ -42,6 +44,8 @@ const Header = () => {
                   <HeaderUser />
                 </div>
               </div>
+              <HeaderOrders />
+              <HeaderWishlist />
               <HeaderCart />
               <Navigation />
             </div>

@@ -6,6 +6,9 @@ import categoryReducer from "../features/category/categorySlice";
 import brandReducer from "../features/brand/brandSlice";
 import productReducer from "../features/product/productSlice";
 import colorReducer from "../features/color/colorSlice";
+import couponReducer from "../features/coupon/couponSlice";
+import orderReducer from "../features/order/";
+import searchReducer from "../features/search/";
 
 export const store = configureStore({
   reducer: {
@@ -14,7 +17,10 @@ export const store = configureStore({
     product: productReducer,
     brand: brandReducer,
     category: categoryReducer,
+    order: orderReducer,
     color: colorReducer,
+    coupon: couponReducer,
+    search: searchReducer,
   },
 });
 

@@ -12,7 +12,13 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
   value?: string | number;
   autoComplete?: string;
   //   register: UseFormRegister<FieldValues>;
-  errors?: string | false | undefined;
+  errors?:
+    | FormikErrors<any>[]
+    | FormikErrors<any>
+    | string[]
+    | string
+    | false
+    | undefined;
 }
 
 const CustomInput: FC<Props> = ({

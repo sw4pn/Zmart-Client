@@ -34,8 +34,14 @@ export type Product = {
   quantity: number;
   price: number;
   discount: number;
-  reviews: [];
+  reviews: Review[];
 };
+
+export interface Review {
+  star: number;
+  postedBy: User;
+  review: string;
+}
 
 export interface Category {
   title: string;
@@ -62,6 +68,13 @@ export interface Cart {
   totalAfterDiscount: number;
 }
 
+export interface Coupon {
+  name: string;
+  expire: Date;
+  discount: number;
+  isActive: boolean;
+}
+
 export interface CartItem {
   product?: Product;
   quantity?: number;
@@ -69,6 +82,10 @@ export interface CartItem {
   variant?: string;
   price?: number;
   finalPrice?: number;
+}
+
+export interface Order {
+  orderId: string;
 }
 
 export interface Transition {

@@ -248,7 +248,7 @@ const Carousel: FC<Props> = ({
 
             {showNavBtn && (
               <a
-                className="absolute w-auto p-4 -mt-5 text-lg font-bold text-white transition duration-500 ease-linear cursor-pointer select-none prev top-1/2 hover:bg-[rgba(0,0,0,0.3)] left-0"
+                className="absolute w-auto p-4 -mt-5 text-lg font-bold text-white transition duration-500 ease-linear cursor-pointer select-none prev top-1/2 hover:bg-[rgba(0,0,0,0.3)] left-0 bg-neutral-600/20 backdrop-blur-md"
                 onClick={(e) => {
                   addSlide(-1);
                   setChange(!change);
@@ -258,7 +258,7 @@ const Carousel: FC<Props> = ({
             )}
             {showNavBtn && (
               <a
-                className="next absolute w-auto p-4 -mt-5 text-lg font-bold text-white transition duration-500 ease-linear cursor-pointer select-none prev top-1/2 hover:bg-[rgba(0,0,0,0.3)] right-0"
+                className="next absolute w-auto p-4 -mt-5 text-lg font-bold text-white transition duration-500 ease-linear cursor-pointer select-none prev top-1/2 hover:bg-[rgba(0,0,0,0.3)] right-0 bg-neutral-600/20 backdrop-blur-md"
                 onClick={(e) => {
                   addSlide(1);
                   setChange(!change);

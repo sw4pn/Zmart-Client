@@ -39,6 +39,13 @@ const sortOptions = [
   { value: "date-old", label: "Oldest First, Date" },
 ];
 
+const itemsPerPageOptions = [
+  { value: "5", label: "5 items" },
+  { value: "10", label: "10 items" },
+  { value: "15", label: "15 items" },
+  { value: "20", label: "20 items" },
+];
+
 const columnIcons = [
   {
     icon: <HiBars3 size={20} className="hidden rotate-90 2xl:block" />,
@@ -63,6 +70,7 @@ const ProductsPage = () => {
   const location = useLocation();
   const [colCount, setColCount] = useState(3);
   const [showFilter, setShowFilter] = useState(false);
+  const [perPage, setPerPage] = useState({ value: 10, label: "10 items" });
   const [overlay, setOverlay] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const isSmallScreen = useMediaQuery("(min-width:768px)");
@@ -80,6 +88,7 @@ const ProductsPage = () => {
   const sort = searchParams.get("sort") || "best";
   const minPrice = parseInt(searchParams.get("minPrice", 10)) || "";
   const maxPrice = parseInt(searchParams.get("maxPrice", 10)) || "";
+  const searchColor = searchParams.get("colors");
 
   const sortBy = sortOptions.find((option) => option.value === sort);
 
@@ -97,7 +106,7 @@ const ProductsPage = () => {
     } else {
       dispatch(getAllProducts());
     }
-  }, []);
+  }, [pageType, location]);
 
   /*  sort the array */
   /*** Filter array  ***/
@@ -117,6 +126,20 @@ const ProductsPage = () => {
         ? sortedArr.filter((product) => product.price < maxPrice)
         : sortedArr;
   }
+
+  if (searchColor && searchColor !== "") {
+    const colorValues = searchColor.split(",");
+
+    sortedArr = sortedArr.filter(
+      (product) =>
+        product.color.some((color) => colorValues.includes(color.title))
+      // product.color.some((color) => color.title === searchColor)
+    );
+    //   const filteredArr = sortedArr.filter((product) =>
+    //   product.color.some((color) => color.title === "silver")
+    // );
+  }
+  // sortedArr.map((product) => console.log(product.color.title));
 
   const gridCount = isLargeScreen
     ? colCount
@@ -141,7 +164,7 @@ const ProductsPage = () => {
     </div>
   ));
 
-  const itemsPerPage = 3;
+  const itemsPerPage = perPage.value;
   const startItemIndex = itemsPerPage * (currentPage - 1);
   const allProducts =
     sortedArr.length > 0
@@ -209,7 +232,7 @@ const ProductsPage = () => {
             <ProductSidebar handleFilter={handleFilterChange} />
           </div> */}
           {overlay && (
-            <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-20"></div>
+            <div className="fixed inset-0 z-20 bg-black/60 backdrop-blur-md"></div>
           )}
           <div
             className={`  border     ${
@@ -226,7 +249,7 @@ const ProductsPage = () => {
           </div>
           <div className=" lg:col-span-8 xl:col-span-9">
             {/* top bar */}
-            <div className="flex justify-end items-center lg:hidden">
+            <div className="flex items-center justify-end lg:hidden">
               <CustomButton
                 title="Filter"
                 width={160}
@@ -234,13 +257,13 @@ const ProductsPage = () => {
                 onClick={() => toggleBar()}
               />
             </div>
-            <div className="flex items-center justify-between border shadow py-2 px-4">
+            <div className="flex flex-wrap items-center justify-between px-4 py-2 border shadow">
               {/* {overlay && ( */}
               {/* )} */}
               <div className="flex flex-wrap items-center justify-center gap-2 ">
                 <span className="text-sm">Sort By:</span>
                 <Select
-                  className="w-40  text-sm"
+                  className="w-40 text-sm"
                   classNamePrefix="select"
                   defaultValue={sortBy}
                   isDisabled={false}
@@ -254,7 +277,29 @@ const ProductsPage = () => {
                 />
               </div>
 
-              <div className="flex items-center justify-center gap-4 flex-wrap">
+              <div className="flex flex-wrap items-center justify-center gap-2 ">
+                <span className="text-sm">Show :</span>
+                <Select
+                  className="w-40 text-sm"
+                  classNamePrefix="select"
+                  defaultValue={perPage}
+                  isDisabled={false}
+                  isLoading={false}
+                  isClearable={false}
+                  isRtl={false}
+                  isSearchable={false}
+                  name="items-per-page"
+                  onChange={(item) => setPerPage(item)}
+                  options={[
+                    { value: 5, label: "5 items" },
+                    { value: 10, label: "10 items" },
+                    { value: 15, label: "15 items" },
+                    { value: 20, label: "20 items" },
+                  ]}
+                />
+              </div>
+
+              <div className="flex flex-wrap items-center justify-center gap-4">
                 <span className="text-sm text-neutral-400">
                   {totalItems} products
                 </span>

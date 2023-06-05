@@ -61,12 +61,14 @@ const CartPage = () => {
 
           <div className="flex items-center justify-end py-4">
             {/* <Link to="/checkout"> */}
-            <CustomButton
-              className="bg-orange-400 hover:bg-orange-600"
-              title="Checkout"
-              width={300}
-              onClick={() => navigate("/checkout")}
-            />
+            {subtotal && subtotal > 0 && (
+              <CustomButton
+                className="bg-orange-400 hover:bg-orange-600"
+                title="Checkout"
+                width={300}
+                onClick={() => navigate("/checkout")}
+              />
+            )}
             {/* </Link> */}
           </div>
         </div>

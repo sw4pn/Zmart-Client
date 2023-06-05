@@ -5,7 +5,7 @@ const data = [
   {
     image: "/images/big_laptop.jpg",
     isLink: true,
-    link: "/category/laptops",
+    link: "/product/macbook-pro-16",
     dark: true,
     isText: true,
     text: {
@@ -52,14 +52,14 @@ const data = [
   {
     image: "/images/big_realme_watch.png",
     isLink: true,
-    link: "/category/smart-watches",
+    link: "/product/realme-watch-3-pro",
     isText: false,
     text: {},
   },
   {
     image: "/images/big_earbuds.webp",
     isLink: true,
-    link: "/category/smart-watches",
+    link: "/product/realme-buds-air-3s",
     isText: false,
     text: {},
   },

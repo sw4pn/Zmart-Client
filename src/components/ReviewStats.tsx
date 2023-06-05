@@ -10,7 +10,7 @@ const ReviewStats = ({ reviews }) => {
     .map((item, i) => {
       const count =
         reviews.length > 0
-          ? reviews.filter((item) => item.star === i).length
+          ? reviews.filter((item) => item.star === i + 1).length
           : 0;
 
       const percent = Math.round((count / reviews.length) * 100);
@@ -21,7 +21,7 @@ const ReviewStats = ({ reviews }) => {
             readonly
             SVGclassName="inline-block"
             size={18}
-            initialValue={i}
+            initialValue={i + 1}
             className="mr-2"
           />
           <div className="flex-1 h-4 max-w-xs mt-1 ml-5 bg-gray-300 rounded-full dark:bg-gray-700">
