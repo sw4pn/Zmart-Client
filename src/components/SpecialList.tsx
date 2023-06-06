@@ -22,7 +22,7 @@ const SpecialList = () => {
 
   return (
     <>
-      <div className="flex flex-wrap justify-center gap-8">
+      <div className="flex flex-wrap justify-center gap-8 ">
         {specialArr.map((product, i) => (
           <ProductCard product={product} key={i} />
         ))}

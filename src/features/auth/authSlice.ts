@@ -120,13 +120,9 @@ export const toggleWishlist = createAsyncThunk<
   User,
   { productId: string },
   { rejectValue: string }
->("wishlist/toggle", async (id, thunkAPI) => {
+>("wishlist/toggle", async (productId, thunkAPI) => {
   try {
-    const response = await axios.put(
-      `${apiUrl}auth/wishlist`,
-      { productId: id },
-      config
-    );
+    const response = await axios.put(`${apiUrl}auth/wishlist`, productId, config);
     return response.data;
   } catch (err: any) {
     return thunkAPI.rejectWithValue(err.response.data);

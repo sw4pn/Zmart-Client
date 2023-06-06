@@ -25,8 +25,8 @@ const PaymentPage = () => {
     : "Loading...";
 
   useEffect(() => {
-    if (id && reload) {
-      dispatch(getOrder(id)).then(() => {
+    if (id || reload) {
+      dispatch(getOrder(id ? id : "")).then(() => {
         setLoading(false);
         setReload(false);
       });
@@ -67,7 +67,16 @@ const PaymentPage = () => {
                 </div>
               </div>
               <div className="">
-                <div className="text-neutral-400">Amount:</div>
+                <div className="text-neutral-400">Subtotal:</div>
+                <div className="text-neutral-500">₹ {order?.orderPrice}</div>
+                <div className="text-neutral-500">
+                  + ₹ {order?.taxPrice} (18%)
+                </div>
+              </div>
+              <div className="">
+                <div className="font-semibold text-neutral-400">
+                  Total Amount:
+                </div>
                 <div className="py-1 text-xl font-semibold text-orange-600 font-rubik">
                   ₹ {order?.finalAmount}
                 </div>

@@ -6,7 +6,10 @@ const Heading = ({
   className?: string;
 }) => {
   return (
-    <h2 className={`p-4 mb-2 text-2xl font-semibold ${className}`}>{title}</h2>
+    <h2
+      className={`px-4 py-2 mb-4 text-2xl font-semibold font-rubik ${className}`}>
+      {title}
+    </h2>
   );
 };
 

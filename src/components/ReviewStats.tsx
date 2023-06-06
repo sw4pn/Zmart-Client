@@ -9,7 +9,7 @@ const ReviewStats = ({ reviews }: { reviews?: Array<Review> }) => {
 
   Array(5)
     .fill(null)
-    .map((i) => {
+    .map((item, i) => {
       const count =
         reviews.length > 0
           ? reviews.filter((item) => item.star === i + 1).length
@@ -17,6 +17,7 @@ const ReviewStats = ({ reviews }: { reviews?: Array<Review> }) => {
 
       const percent = Math.round((count / reviews.length) * 100);
 
+      if (percent > 200) console.log(item);
       stats.push(
         <div key={i} className="flex items-center justify-between">
           <Rating

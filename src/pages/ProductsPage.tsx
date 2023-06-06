@@ -76,6 +76,8 @@ const ProductsPage = () => {
   const maxPrice = parseInt(searchParams.get("maxPrice") || "", 10) || null;
 
   const searchColor = searchParams.get("colors");
+  const searchBrand = searchParams.get("brand");
+  const searchCategory = searchParams.get("category");
 
   const sortBy = sortOptions.find((option) => option.value === sort);
 
@@ -120,6 +122,25 @@ const ProductsPage = () => {
     sortedArr = sortedArr.filter((product) =>
       product.color.some((color: any) => colorValues.includes(color.title))
     );
+  }
+
+  // brand filter
+  if (searchBrand && searchBrand !== "") {
+    const brandValues = searchBrand.split(",");
+
+    sortedArr = sortedArr.filter((product) =>
+      brandValues.includes(product.brand.title)
+    );
+  }
+
+  // category filter
+  if (searchCategory && searchCategory !== "") {
+    const categoryValues = searchCategory.split(",");
+
+    sortedArr = sortedArr.filter((product) => {
+      const cat = product.category.title.toLowerCase();
+      return categoryValues.includes(cat);
+    });
   }
 
   const gridCount = isLargeScreen

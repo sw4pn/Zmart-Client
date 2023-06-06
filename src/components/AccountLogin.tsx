@@ -42,8 +42,8 @@ const AccountLogin = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      email: "",
-      password: "",
+      email: "demo@example.com",
+      password: "12341234",
     },
     validationSchema: schema,
 

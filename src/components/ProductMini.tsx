@@ -21,7 +21,9 @@ const ProductMini: FC<Props> = ({ product, onClose }) => {
   //     : Math.ceil(price);
 
   const discountedPrice =
-    discount > 0 ? Math.ceil(price * (discount / 100)) : Math.ceil(price);
+    discount > 0
+      ? price - Math.ceil(price * (discount / 100))
+      : Math.ceil(price);
 
   const productPrice =
     discount > 0 ? (

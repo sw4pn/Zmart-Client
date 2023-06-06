@@ -12,6 +12,8 @@ const CartPage = () => {
 
   const cart = user?.cart;
 
+  console.log(cart);
+
   const cartItems = cart?.products?.map((item, i) => (
     <CartItem key={i} item={item} />
   ));

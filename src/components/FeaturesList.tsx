@@ -40,7 +40,8 @@ const FeaturesList = () => {
     );
   });
   return (
-    <div className="grid grid-cols-2 gap-2 px-1 mx-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 md:px-3 md:mx-2 sm:gap-4 sm:place-items-center lg:max-w-screen-2xl lg:mx-auto ">
+    <div className="flex flex-wrap items-center justify-center gap-10">
+      {/* <div className="grid grid-cols-2 gap-2 px-1 mx-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 md:px-3 md:mx-2 sm:gap-4 sm:place-items-center lg:max-w-screen-2xl lg:mx-auto "> */}
       {features}
     </div>
   );

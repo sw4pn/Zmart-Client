@@ -166,12 +166,10 @@ const ProductSidebar: FC<Props> = ({
                   : false
               }
               onChange={() => {
-                if (category.title)
-                  handleArrChange(
-                    "category",
-                    category.title,
-                    searchCategoryArr
-                  );
+                if (category.title) {
+                  const cat = category.title.toLowerCase();
+                  handleArrChange("category", cat, searchCategoryArr);
+                }
               }}>
               {category.title}
             </CustomCheckbox>

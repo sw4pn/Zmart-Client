@@ -14,6 +14,7 @@ import {
   toggleWishlist,
 } from "../features/auth/authSlice";
 import { stripHTML, truncateTitle } from "../utils/utils";
+import { toast } from "react-hot-toast";
 
 interface Props {
   product: Product;
@@ -39,8 +40,12 @@ const ProductCard: FC<Props> = ({ product, grid }) => {
 
   const desc =
     grid === 0 ? truncateTitle(String(product?.description), 200) : "";
+
   const discountedPrice =
-    discount > 0 ? Math.ceil(price * (discount / 100)) : Math.ceil(price);
+    discount > 0
+      ? price - Math.ceil(price * (discount / 100))
+      : Math.ceil(price);
+
   const productPrice =
     discount > 0 ? (
       <p className="">
@@ -62,7 +67,7 @@ const ProductCard: FC<Props> = ({ product, grid }) => {
 
     const finalPrice =
       product.discount > 0
-        ? Math.ceil(product.price * (discount / 100))
+        ? product.price - Math.ceil(product.price * (discount / 100))
         : product.price;
 
     const data = {
@@ -86,7 +91,13 @@ const ProductCard: FC<Props> = ({ product, grid }) => {
 
   const handleWishlist = (id: string) => {
     if (user) {
-      dispatch(toggleWishlist({ productId: id })).then(() => setReload(true));
+      dispatch(toggleWishlist({ productId: id })).then((res) => {
+        const data = res.payload;
+        if (data.success) {
+          toast.success(data.message);
+          setReload(true);
+        }
+      });
     } else {
       navigate("/login?auth=0");
     }
@@ -95,29 +106,34 @@ const ProductCard: FC<Props> = ({ product, grid }) => {
   return (
     <>
       <div
-        className={`relative flex flex-col mx-auto bg-white border sm:w-full group  sm:flex-row ${
-          grid === 0 ? "max-w-screen-lg " : "  w-3/4 sm:max-w-sm"
+        className={`relative flex  bg-white border  group  rounded-md px-4 drop-shadow-md ${
+          grid === 0 ? "max-w-screen-md flex-row" : "w-80 flex-col"
         }`}>
-        <div className="flex-1 p-2 overflow-hidden">
+        <div className="flex-1 p-2 overflow-hidden max-h-72">
           <img
             src={thumbnail?.url}
             alt={title}
-            className="object-cover w-full h-full group-hover:scale-110 group-hover:duration-300 group-hover:ease-in-out"
+            className="object-contain w-full h-full group-hover:scale-110 group-hover:duration-300 group-hover:ease-in-out"
           />
         </div>
-        <div className="flex flex-col justify-between flex-1 px-1 py-4">
-          <div
-            className="absolute cursor-pointer right-4 top-2 hover:text-orange-500"
-            onClick={() => handleWishlist(productId)}>
-            {isFavorite ? (
-              <AiFillHeart size={24} />
-            ) : (
-              <AiOutlineHeart size={24} />
-            )}
+        <div
+          className="absolute cursor-pointer right-4 top-2 hover:text-orange-500"
+          onClick={() => handleWishlist(productId)}>
+          {isFavorite ? (
+            <AiFillHeart size={24} />
+          ) : (
+            <AiOutlineHeart size={24} />
+          )}
+        </div>
+        {product.discount > 0 && (
+          <div className="absolute px-1.5 py-1 text-sm bg-orange-600 rounded-full top-4 font-semibold text-neutral-100">
+            {product.discount}%
           </div>
+        )}
+        <div className="flex flex-col justify-between flex-1 py-4">
           <p className="text-orange-700 capitalize">{brand.title}</p>
-          <h2 className="text-lg font-semibold">
-            <Link to={`/product/${slug}`} className="hover:opacity-70">
+          <h2 className="font-semibold ">
+            <Link to={`/product/${slug}`} className=" hover:opacity-70">
               {title}
             </Link>
           </h2>
@@ -133,22 +149,22 @@ const ProductCard: FC<Props> = ({ product, grid }) => {
           {grid === 0 && (
             <div className="py-2 text-neutral-400">{stripHTML(desc)}</div>
           )}
-          <Spacer size={40} />
+          {/* <Spacer size={40} /> */}
           <div className="flex flex-wrap items-center gap-2 py-2 text-sm">
-            Price: {productPrice}
+            {productPrice}
           </div>
           <div className="py-2 pl-2 pr-4">
             {alreadyInCart ? (
               <CustomButton
                 title="Go To Cart"
-                className="!p-1 max-w-[260px] !border rounded-none !bg-neutral-100 hover:bg-neutral-200 hover:border-orange-700"
+                className=" max-w-[260px] !border rounded-none !bg-neutral-100 hover:bg-neutral-200 hover:border-orange-700"
                 outline
                 onClick={() => navigate("/cart")}
               />
             ) : (
               <CustomButton
                 title="Add To Cart"
-                className="!p-1 max-w-[260px]  !border rounded-none hover:bg-neutral-100 hover:border-orange-700"
+                className="max-w-[260px] !bg-orange-300 !border rounded-none hover:bg-neutral-100 hover:border-orange-700"
                 outline
                 onClick={() => handleAddToCart()}
               />

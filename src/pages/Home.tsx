@@ -29,15 +29,12 @@ const Home = () => {
           <CategoryList />
         </div>
         {/* Features */}
-        <div className="py-10 bg-neutral-100">
+        <div className="py-10 bg-neutral-50">
           <FeaturesList />
         </div>
         {/* Special Products */}
-        <div className="py-10">
-          <Heading
-            title="Special Offers"
-            className="p-2 m-4 text-neutral-400"
-          />
+        <div className="px-2 py-10 md:px-8 bg-neutral-100">
+          <Heading title="Special Offers" className="" />
           <SpecialList />
         </div>
         {/* BigCards */}
@@ -53,11 +50,8 @@ const Home = () => {
           <BrandList />
         </div>
         {/* Popular Products */}
-        <div className="py-10 bg-neutral-100">
-          <Heading
-            title="Popular Products"
-            className="p-2 m-4 text-neutral-400"
-          />
+        <div className="px-2 py-10 md:px-8 bg-neutral-100">
+          <Heading title="Popular Products" className="" />
           <PopularList />
         </div>
       </Container>

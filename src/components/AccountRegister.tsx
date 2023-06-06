@@ -56,7 +56,6 @@ const AccountRegister = () => {
         .then((res: any) => {
           const response = res.payload;
           setMessage(response.message);
-          console.log(response);
 
           if (response.success && response.createdAt) {
             toast.success(response.message);
@@ -132,7 +131,6 @@ const AccountRegister = () => {
               width={300}
               className=""
               type="submit"
-              onClick={() => formik.handleSubmit()}
             />
           </div>
         </form>

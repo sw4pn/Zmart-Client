@@ -23,6 +23,7 @@ const CartItem: FC<Props> = ({ item }) => {
     product && product.thumbnail?.url
       ? product.thumbnail.url
       : "/images/product-sample.jpg";
+
   const totalPrice =
     item.finalPrice && item.quantity && item.finalPrice * item.quantity;
 

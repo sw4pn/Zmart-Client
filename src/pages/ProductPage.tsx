@@ -64,8 +64,8 @@ const ProductPage = () => {
   // const { productLoading } = productState;
 
   useEffect(() => {
-    if (slug && reload) {
-      dispatch(getProductBySlug(slug))
+    if (slug || reload) {
+      dispatch(getProductBySlug(slug ? slug : ""))
         .then(() => setLoading(false))
         .finally(() => setReload(false));
     }

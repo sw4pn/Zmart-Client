@@ -20,7 +20,7 @@ const BigCard: FC<Props> = ({ product }) => {
   return (
     <Link
       to={product.link}
-      className={`relative rounded-lg overflow-hidden hover:opacity-80 w-[90%] sm:w-96 group ${
+      className={`relative rounded-lg overflow-hidden hover:opacity-80 w-[90%]  md:w-80 2xl:w-[360px] group ${
         product.dark
           ? "bg-zinc-800 text-neutral-200"
           : "bg-neutral-100 text-zinc-800"
