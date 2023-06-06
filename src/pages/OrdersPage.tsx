@@ -1,12 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Container from "../components/layouts/Container";
 import HeadTitle from "../components/HeadTitle";
-import {
-  selectOrderState,
-  selectOrders,
-  selectOrder,
-  getUserOrders,
-} from "../features/order";
+import { selectOrders, getUserOrders } from "../features/order";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Spacer from "../components/helpers/Spacer";
@@ -14,13 +9,10 @@ import moment from "moment";
 import CustomButton from "../components/ui/CustomButton";
 
 const OrdersPage = () => {
-  const [loading, setLoading] = useState(true);
   const dispatch: any = useDispatch();
   const navigate = useNavigate();
 
-  const orderState = useSelector(selectOrderState);
   const orders = useSelector(selectOrders);
-  const order = useSelector(selectOrder);
 
   const ordersArr = Object.values(orders);
 
@@ -82,7 +74,7 @@ const OrdersPage = () => {
     );
 
   useEffect(() => {
-    dispatch(getUserOrders()).then(() => setLoading(false));
+    dispatch(getUserOrders());
   }, [dispatch]);
 
   return (

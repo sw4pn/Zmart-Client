@@ -73,7 +73,7 @@ const AccountEdit = () => {
       country: user?.address?.country || "",
       state: user?.address?.state || "",
       city: user?.address?.city || "",
-      postCode: user?.address?.postCode || "",
+      postCode: user?.address?.pinCode || "",
       address: user?.address?.address || "",
     },
     validationSchema: schema,

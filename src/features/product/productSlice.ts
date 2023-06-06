@@ -84,8 +84,7 @@ export const addReview = createAsyncThunk<
   { rejectValue: string }
 >("review/add", async (data, thunkAPI) => {
   try {
-    const { id, ...restData } = data;
-    return await productService.addReview(id, restData);
+    return await productService.addReview(data);
   } catch (err: any) {
     return thunkAPI.rejectWithValue(err.response.data);
   }
@@ -97,8 +96,7 @@ export const updateReview = createAsyncThunk<
   { rejectValue: string }
 >("review/update", async (data, thunkAPI) => {
   try {
-    const { id, ...restData } = data;
-    return await productService.updateReview(id, restData);
+    return await productService.updateReview(data);
   } catch (err: any) {
     return thunkAPI.rejectWithValue(err.response.data);
   }
@@ -110,8 +108,7 @@ export const deleteReview = createAsyncThunk<
   { rejectValue: string }
 >("review/delete", async (data, thunkAPI) => {
   try {
-    const { id, ...restData } = data;
-    return await productService.deleteReview(id, restData);
+    return await productService.deleteReview(data);
   } catch (err: any) {
     return thunkAPI.rejectWithValue(err.response.data);
   }

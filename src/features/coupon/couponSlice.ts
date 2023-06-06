@@ -59,7 +59,7 @@ export const getCoupon = createAsyncThunk(
 
 export const getAllCoupons = createAsyncThunk(
   "coupon/get-all",
-  async (id, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       const response = await axios.get(`${apiUrl}coupons/`, config);
 

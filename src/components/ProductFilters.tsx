@@ -6,7 +6,7 @@ interface Props {
 }
 
 const ProductFilters = ({ handleFilter }: Props) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const color = searchParams.get("colors");
 
@@ -19,7 +19,6 @@ const ProductFilters = ({ handleFilter }: Props) => {
   // const searchColor = searchParams.get("colors");
   const searchBrand = searchParams.get("brand");
   const searchCategory = searchParams.get("category");
-
 
   const searchBrandArr = Array.isArray(searchBrand)
     ? searchBrand
@@ -96,17 +95,17 @@ const ProductFilters = ({ handleFilter }: Props) => {
     // ...priceFilterTags,
   ];
 
-  const handleColorChange = (item: any) => {
-    const color = item.toLowerCase();
-    const index = colors.indexOf(color);
-    const colorValue =
-      index !== -1 ? colors.splice(index, 1) : colors.push(color);
+  // const handleColorChange = (item: any) => {
+  //   const color = item.toLowerCase();
+  //   const index = colors.indexOf(color);
+  //   const colorValue =
+  //     index !== -1 ? colors.splice(index, 1) : colors.push(color);
 
-    handleFilter(
-      "colors",
-      colors.filter((i) => i.length !== 0)
-    );
-  };
+  //   handleFilter(
+  //     "colors",
+  //     colors.filter((i) => i.length !== 0)
+  //   );
+  // };
 
   const handleArrChange = (
     property: string,

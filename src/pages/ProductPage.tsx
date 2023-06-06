@@ -72,7 +72,7 @@ const ProductPage = () => {
   }, [slug, reload, dispatch]);
 
   const cart = user?.cart;
-  const wishlist = user?.wishlist;
+  // const wishlist = user?.wishlist;
 
   const productId = product?._id;
   const discount = product?.discount;
@@ -140,7 +140,7 @@ const ProductPage = () => {
   useEffect(() => {
     if (category) {
       const catSlug = category?.slug;
-      dispatch(getProductByCategory(catSlug));
+      if (catSlug) dispatch(getProductByCategory(catSlug));
     }
   }, [category, dispatch]);
 
@@ -153,9 +153,9 @@ const ProductPage = () => {
     (item) => item?.product?._id === productId
   );
 
-  const isFavorite =
-    wishlist &&
-    wishlist?.find((product) => product._id?.toString() === productId);
+  // const isFavorite =
+  //   wishlist &&
+  //   wishlist?.find((product) => product._id?.toString() === productId);
 
   const discountedPrice =
     discount && discount > 0
@@ -405,14 +405,15 @@ const ProductPage = () => {
             </div>
 
             <div className="p-2 bg-red-100">
-              {reviews?.map((review, i) => (
-                <ProductReview
-                  key={i}
-                  product={product}
-                  review={review}
-                  handleReload={reloadPage}
-                />
-              ))}
+              {product &&
+                reviews?.map((review, i) => (
+                  <ProductReview
+                    key={i}
+                    product={product}
+                    review={review}
+                    handleReload={reloadPage}
+                  />
+                ))}
 
               {totalReviews < 1 && (
                 <div className="flex items-center justify-center p-4 ">

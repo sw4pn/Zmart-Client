@@ -29,7 +29,19 @@ const getClientSecret = () => {
   //
 };
 
-const checkoutHandler = async (data, reloadPage) => {
+type checkoutOrderType = {
+  orderId: string | undefined;
+  user: {
+    firstName: string | undefined;
+    lastName: string | undefined;
+    email: string | undefined;
+  };
+};
+
+const checkoutHandler = async (
+  data: checkoutOrderType,
+  navigate: (val: string) => void
+) => {
   const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
 
   if (!res) {
@@ -71,8 +83,8 @@ const checkoutHandler = async (data, reloadPage) => {
     },
     // "callback_url":"http://localhost:1769/verify",
     prefill: {
-      name: data.user.firstName + " " + data.user.lastName, //"Soumya Dey",
-      email: data.user.email, // "SoumyaDey@example.com",
+      name: data.user.firstName + " " + data.user.lastName,
+      email: data.user.email,
       contact: "9999999999",
     },
     handler: async function (response: razorpayResponse) {
@@ -100,11 +112,11 @@ const checkoutHandler = async (data, reloadPage) => {
           : "Payment not verified.";
         toast.error(msg);
       }
-      reloadPage(`/order/${orderId}`);
+      navigate(`/order/${orderId}`);
     },
   };
 
-  const paymentObject = new window.Razorpay(options);
+  const paymentObject = new (window as any).Razorpay(options);
 
   paymentObject.open();
 };

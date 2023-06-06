@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getOrder, selectOrder } from "../features/order";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Container from "../components/layouts/Container";
 import HeadTitle from "../components/HeadTitle";
 import moment from "moment";
@@ -10,13 +10,12 @@ import { AiFillCaretLeft } from "react-icons/ai";
 
 const OrderPage = () => {
   const dispatch: any = useDispatch();
-  const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
   const order = useSelector(selectOrder);
 
   useEffect(() => {
-    if (id) dispatch(getOrder(id)).then(() => setLoading(false));
+    if (id) dispatch(getOrder(id));
   }, []);
 
   const orderTime = order

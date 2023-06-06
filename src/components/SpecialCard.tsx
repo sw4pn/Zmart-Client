@@ -13,15 +13,13 @@ import {
   toggleWishlist,
 } from "../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import LoginModal from "./modals/LoginModal";
-import RegisterModal from "./modals/RegisterModal";
 
 interface Props {
   product: Product;
   className?: string;
 }
 
-const SpecialCard: FC<Props> = ({ product, className }) => {
+const SpecialCard: FC<Props> = ({ product }) => {
   const [reload, setReload] = useState(false);
   const dispatch: any = useDispatch();
   const navigate = useNavigate();

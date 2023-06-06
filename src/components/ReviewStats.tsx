@@ -2,7 +2,7 @@ import { Rating } from "react-simple-star-rating";
 import LoaderContent from "./loaders/LoaderContent";
 import { Review } from "../types";
 
-const ReviewStats = ({ reviews }: { reviews: Review[] }) => {
+const ReviewStats = ({ reviews }: { reviews?: Array<Review> }) => {
   if (!reviews || reviews.length === 0) return <LoaderContent />;
 
   const stats: JSX.Element[] = [];

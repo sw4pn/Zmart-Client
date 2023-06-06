@@ -19,7 +19,7 @@ interface AccordionStore {
 export const AccordionContext = createContext<AccordionStore>({
   accordionRef: null,
   items: {},
-  setItems: (data) => {
+  setItems: () => {
     //
   },
   transition: null,
@@ -37,7 +37,6 @@ interface Props {
 const Accordion: FC<Props> = ({
   children,
   as = "div",
-  className = "",
   transition = undefined,
   alwaysOpen = false,
 }) => {

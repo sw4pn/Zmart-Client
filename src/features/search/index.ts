@@ -54,13 +54,13 @@ export const searchSlice = createSlice({
     builder
       .addCase(searchProducts.fulfilled, (state, action) => {
         const data: any = action.payload;
-        const { success, message, products } = data;
+        const { message, products } = data;
         state.products = products;
         state.searchMessage = message;
       })
       .addCase(searchProducts.rejected, (state, action) => {
         const data: any = action.payload;
-        const { success, message, products } = data;
+        const { message } = data;
         state.products = [];
         state.searchMessage = message;
       })

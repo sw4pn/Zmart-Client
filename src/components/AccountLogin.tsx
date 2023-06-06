@@ -25,7 +25,7 @@ const schema = yup.object().shape({
 
 const AccountLogin = () => {
   const [message, setMessage] = useState("");
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const dispatch: any = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -49,7 +49,7 @@ const AccountLogin = () => {
 
     onSubmit: (values) => {
       dispatch(loginUser(values))
-        .then((res) => {
+        .then((res: any) => {
           const response = res.payload;
 
           setMessage(response.message);

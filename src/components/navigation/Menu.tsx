@@ -8,11 +8,11 @@ import { logout } from "../../features/auth/authSlice";
 import { selectIsAuthenticated } from "../../features/auth/authSlice";
 import { toast } from "react-hot-toast";
 interface Props {
-  show: boolean;
+  show?: boolean;
   toggle: () => void;
 }
 
-const Menu: FC<Props> = ({ show, toggle }) => {
+const Menu: FC<Props> = ({ toggle }) => {
   const dispatch: any = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();

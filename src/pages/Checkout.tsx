@@ -14,7 +14,7 @@ import { AiOutlineTags } from "react-icons/ai";
 import CustomButton from "../components/ui/CustomButton";
 import { selectCoupon, validateCoupon } from "../features/coupon/couponSlice";
 import { toast } from "react-hot-toast";
-import { Cart, CartItem, Coupon, OrderItems, Product } from "../types";
+import { Cart, Coupon, OrderItems } from "../types";
 import { createOrder } from "../features/order";
 
 const schema = yup.object().shape({
@@ -104,12 +104,13 @@ const Checkout = () => {
       country: user?.address?.country || "",
       state: user?.address?.state || "",
       city: user?.address?.city || "",
-      postCode: user?.address?.postCode || "",
+      postCode: user?.address?.pinCode || "",
       coupon: "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
       const orderItems: OrderItems[] = [];
+
       productsArr.length > 0 &&
         productsArr.map((item) => {
           if (
@@ -118,7 +119,7 @@ const Checkout = () => {
             item.finalPrice &&
             item.color &&
             item.quantity &&
-            item.variant
+            typeof item.variant === "string"
           ) {
             orderItems.push({
               product: item.product._id,

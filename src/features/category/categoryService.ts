@@ -36,7 +36,7 @@ const updateACategory = async (data: any) => {
   return response.data;
 };
 
-const deleteACategory = async (id) => {
+const deleteACategory = async (id: string) => {
   const response = await axios.delete(`${apiUrl}categories/${id}`, config);
 
   return response.data;

@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 interface Props {
@@ -14,10 +14,10 @@ interface Props {
 }
 
 const SwiperSlider: FC<Props> = ({ images }) => {
-  const [active, setActive] = useState(0);
-
   const slides = images.map((image, i) => (
-    <SwiperSlide className="flex items-center justify-center text-center bg-red-400">
+    <SwiperSlide
+      key={i}
+      className="flex items-center justify-center text-center bg-red-400">
       <img
         src={image}
         alt="Screen"

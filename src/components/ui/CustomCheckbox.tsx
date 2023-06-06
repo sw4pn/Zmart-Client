@@ -19,7 +19,7 @@ interface Props {
 }
 
 const CustomCheckbox: FC<Props> = (props) => {
-  const { id, label, className, children, size } = props;
+  const { id, className, children, size } = props;
 
   const state = useToggleState(props);
   const ref = useRef(null);

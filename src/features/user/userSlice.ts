@@ -33,13 +33,13 @@ export const getUsers = createAsyncThunk(
   }
 );
 
-export const getAUser = createAsyncThunk(
+export const getAUser = createAsyncThunk<User, string, { rejectValue: string }>(
   "users/getAUser",
   async (id, thunkAPI) => {
     try {
       return await userService.getAUser(id);
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
+    } catch (err: any) {
+      return thunkAPI.rejectWithValue(err.response.data);
     }
   }
 );
@@ -68,16 +68,17 @@ export const changePassword = createAsyncThunk<
   }
 });
 
-export const deleteUser = createAsyncThunk(
-  "users/deleteUser",
-  async (id, thunkAPI) => {
-    try {
-      return await userService.deleteAUser(id);
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
-    }
+export const deleteUser = createAsyncThunk<
+  User,
+  string,
+  { rejectValue: string }
+>("users/deleteUser", async (id, thunkAPI) => {
+  try {
+    return await userService.deleteAUser(id);
+  } catch (err: any) {
+    return thunkAPI.rejectWithValue(err.response.data);
   }
-);
+});
 
 export const resetUserState = createAction("RESET_USER");
 

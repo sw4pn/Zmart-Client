@@ -53,7 +53,7 @@ const AccountRegister = () => {
 
     onSubmit: (values) => {
       dispatch(registerUser(values))
-        .then((res) => {
+        .then((res: any) => {
           const response = res.payload;
           setMessage(response.message);
           console.log(response);

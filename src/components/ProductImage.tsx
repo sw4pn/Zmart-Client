@@ -15,32 +15,32 @@ interface Props {
   loading: boolean;
 }
 
-const imageVariants = {
-  enter: (direction: number) => {
-    return {
-      x: direction > 0 ? 1000 : -1000,
-      opacity: 0,
-    };
-  },
-  center: {
-    zIndex: 1,
-    x: 0,
-    opacity: 1,
-  },
-  exit: (direction: number) => {
-    return {
-      zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
-      opacity: 0,
-    };
-  },
-};
+// const imageVariants = {
+//   enter: (direction: number) => {
+//     return {
+//       x: direction > 0 ? 1000 : -1000,
+//       opacity: 0,
+//     };
+//   },
+//   center: {
+//     zIndex: 1,
+//     x: 0,
+//     opacity: 1,
+//   },
+//   exit: (direction: number) => {
+//     return {
+//       zIndex: 0,
+//       x: direction < 0 ? 1000 : -1000,
+//       opacity: 0,
+//     };
+//   },
+// };
 
 const ProductImage: FC<Props> = ({ images, loading }) => {
   const [index, setIndex] = useState(0);
 
   const handleClick = (newIndex: number) => {
-    const direction = newIndex > index ? 1 : -1;
+    // const direction = newIndex > index ? 1 : -1;
     setIndex(newIndex);
     // Perform any additional logic or state updates here
   };

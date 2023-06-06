@@ -44,7 +44,7 @@ const AccountDetails = () => {
             <address className="py-2">
               {user?.address?.address}
               <span className="block py-2">
-                {user.address.city}, {user.address.postCode}
+                {user.address.city}, {user.address.pinCode}
               </span>
               <span className="block py-2">
                 {user.address.state}, {user.address.country}

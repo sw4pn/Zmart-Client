@@ -179,19 +179,19 @@ const Carousel: FC<Props> = ({
                     maxWidth: width ? width : "600px",
                     maxHeight: height ? height : "400px",
                   }}
-                  onMouseDown={(e) => {
+                  onMouseDown={() => {
                     automatic && setIsPaused(true);
                   }}
-                  onMouseUp={(e) => {
+                  onMouseUp={() => {
                     automatic && setIsPaused(false);
                   }}
-                  onMouseLeave={(e) => {
+                  onMouseLeave={() => {
                     automatic && setIsPaused(false);
                   }}
-                  onTouchStart={(e) => {
+                  onTouchStart={() => {
                     automatic && setIsPaused(true);
                   }}
-                  onTouchEnd={(e) => {
+                  onTouchEnd={() => {
                     automatic && setIsPaused(false);
                   }}
                   key={index}>
@@ -249,7 +249,7 @@ const Carousel: FC<Props> = ({
             {showNavBtn && (
               <a
                 className="absolute w-auto p-4 -mt-5 text-lg font-bold text-white transition duration-500 ease-linear cursor-pointer select-none prev top-1/2 hover:bg-[rgba(0,0,0,0.3)] left-0 bg-neutral-600/20 backdrop-blur-md"
-                onClick={(e) => {
+                onClick={() => {
                   addSlide(-1);
                   setChange(!change);
                 }}>
@@ -259,7 +259,7 @@ const Carousel: FC<Props> = ({
             {showNavBtn && (
               <a
                 className="next absolute w-auto p-4 -mt-5 text-lg font-bold text-white transition duration-500 ease-linear cursor-pointer select-none prev top-1/2 hover:bg-[rgba(0,0,0,0.3)] right-0 bg-neutral-600/20 backdrop-blur-md"
-                onClick={(e) => {
+                onClick={() => {
                   addSlide(1);
                   setChange(!change);
                 }}>
@@ -268,14 +268,14 @@ const Carousel: FC<Props> = ({
             )}
             {dots && (
               <div className="dots mt-2.5 text-center absolute bottom-2.5 w-full">
-                {data.map((item, index) => {
+                {data.map((index) => {
                   return (
                     <span
                       className={`w-2 h-2 mx-0.5 my-0 cursor-pointer dot rounded-full inline-block transition-[background-color] duration-500 ease-linear  hover:bg-[#717171] ${
                         index === slide ? "bg-white" : "bg-[#bbb]"
                       } `}
                       key={index}
-                      onClick={(e) => {
+                      onClick={() => {
                         setSlide(index);
                         setChange(!change);
                       }}></span>
@@ -300,7 +300,7 @@ const Carousel: FC<Props> = ({
                 className="thumbnail my-0 mx-1.5"
                 key={index}
                 id={`thumbnail-${index}`}
-                onClick={(e) => {
+                onClick={() => {
                   setSlide(index);
                   setChange(!change);
                 }}

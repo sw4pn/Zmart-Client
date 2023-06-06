@@ -13,12 +13,12 @@ const ProductMini: FC<Props> = ({ product, onClose }) => {
     ? product.thumbnail.url
     : "/images/product-image.png";
 
-  const { discount, price, slug } = product;
+  const { discount, price } = product;
 
-  const totalPrice =
-    product?.discount && product?.discount > 0
-      ? Math.ceil(price - (100 - discount) / 100)
-      : Math.ceil(price);
+  // const totalPrice =
+  //   product?.discount && product?.discount > 0
+  //     ? Math.ceil(price - (100 - discount) / 100)
+  //     : Math.ceil(price);
 
   const discountedPrice =
     discount > 0 ? Math.ceil(price * (discount / 100)) : Math.ceil(price);
@@ -36,7 +36,7 @@ const ProductMini: FC<Props> = ({ product, onClose }) => {
     );
 
   return (
-    <div className="shadow-md p-4 relative w-64 border">
+    <div className="relative w-64 p-4 border shadow-md">
       <div className="w-24 h-24 mx-auto overflow-hidden">
         <div
           className="absolute rounded-full -top-4 -right-4 p-1.5 border cursor-pointer bg-neutral-100 hover:bg-neutral-200 duration-200 transition ease-in-out"
@@ -46,13 +46,13 @@ const ProductMini: FC<Props> = ({ product, onClose }) => {
         <img
           src={thumb}
           alt="product"
-          className="w-full h-full bg-cover hover:scale-110 rounded-md  duration-500"
+          className="w-full h-full duration-500 bg-cover rounded-md hover:scale-110"
         />
       </div>
-      <div className="flex flex-col py-2 px-2 basis-2/3">
+      <div className="flex flex-col px-2 py-2 basis-2/3">
         <Link
           to={`/product/${product.slug}`}
-          className="hover:opacity-70 text-neutral-500 font-semibold capitalize my-2">
+          className="my-2 font-semibold capitalize hover:opacity-70 text-neutral-500">
           {product.title}
         </Link>
         <div className=""> {productPrice} </div>

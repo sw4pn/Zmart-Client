@@ -1,5 +1,3 @@
-import "react-multi-carousel/lib/styles.css";
-
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store";
 import {

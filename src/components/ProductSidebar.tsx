@@ -33,7 +33,7 @@ const ProductSidebar: FC<Props> = ({
   toggleBar,
   page,
 }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const dispatch: any = useDispatch();
 
   const minPrice = parseInt(searchParams.get("minPrice") || "", 10) || null;
@@ -89,7 +89,8 @@ const ProductSidebar: FC<Props> = ({
               label="Min Price"
               className="mr-2"
               min={0}
-              value={minPrice}
+              // value={minPrice}
+              value={minPrice !== null ? minPrice : undefined}
               onChange={(e) => {
                 console.log("min-", minPrice, maxPrice);
                 handleFilter("minPrice", (e.target as HTMLInputElement).value);
@@ -101,7 +102,8 @@ const ProductSidebar: FC<Props> = ({
               type="number"
               label="Max Price"
               min={0}
-              value={maxPrice}
+              // value={maxPrice}
+              value={maxPrice !== null ? maxPrice : undefined}
               onChange={(e) =>
                 handleFilter("maxPrice", (e.target as HTMLInputElement).value)
               }
@@ -158,12 +160,19 @@ const ProductSidebar: FC<Props> = ({
               key={i}
               id={`category-${category.slug}`}
               name="category"
-              isSelected={searchCategoryArr.includes(
-                category?.title.toLowerCase()
-              )}
-              onChange={() =>
-                handleArrChange("category", category.title, searchCategoryArr)
-              }>
+              isSelected={
+                category.title
+                  ? searchCategoryArr.includes(category?.title.toLowerCase())
+                  : false
+              }
+              onChange={() => {
+                if (category.title)
+                  handleArrChange(
+                    "category",
+                    category.title,
+                    searchCategoryArr
+                  );
+              }}>
               {category.title}
             </CustomCheckbox>
           ))}
@@ -174,7 +183,7 @@ const ProductSidebar: FC<Props> = ({
 
   const sideMenuSize = useMemo(() => {
     return sideMenu.length;
-  }, []);
+  }, [sideMenu.length]);
 
   const generateHeaderClass = useCallback(
     (open: boolean, position: number) => {
@@ -194,17 +203,17 @@ const ProductSidebar: FC<Props> = ({
     [sideMenuSize]
   );
 
-  const handleColorChange = (item: any) => {
-    const color = item.toLowerCase();
-    const index = searchColors.indexOf(color);
-    const colorValue =
-      index !== -1 ? searchColors.splice(index, 1) : searchColors.push(color);
+  // const handleColorChange = (item: any) => {
+  //   const color = item.toLowerCase();
+  //   const index = searchColors.indexOf(color);
+  //   const colorValue =
+  //     index !== -1 ? searchColors.splice(index, 1) : searchColors.push(color);
 
-    handleFilter(
-      "colors",
-      searchColors.filter((i) => i.length !== 0)
-    );
-  };
+  //   handleFilter(
+  //     "colors",
+  //     searchColors.filter((i) => i.length !== 0)
+  //   );
+  // };
 
   const handleArrChange = (
     property: string,

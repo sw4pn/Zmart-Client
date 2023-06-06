@@ -119,7 +119,6 @@ export const colorSlice = createSlice({
       })
       .addCase(addColor.rejected, (state, action) => {
         const data: any = action.payload;
-        const { successs, message, ...resData } = data;
         const msg = data?.response?.data?.message
           ? data?.response?.data?.message
           : data?.message;
@@ -143,7 +142,6 @@ export const colorSlice = createSlice({
       })
       .addCase(updateAColor.rejected, (state, action) => {
         const data: any = action.payload;
-        const { successs, message, ...resData } = data;
         const msg = data?.response?.data?.message
           ? data?.response?.data?.message
           : data?.message;
@@ -167,7 +165,6 @@ export const colorSlice = createSlice({
       })
       .addCase(deleteAColor.rejected, (state, action) => {
         const data: any = action.payload;
-        const { successs, message, ...resData } = data;
         const msg = data?.response?.data?.message
           ? data?.response?.data?.message
           : data?.message;
@@ -191,7 +188,6 @@ export const colorSlice = createSlice({
       })
       .addCase(getAColor.rejected, (state, action) => {
         const data: any = action.payload;
-        const { successs, message, ...resData } = data;
         const msg = data?.response?.data?.message
           ? data?.response?.data?.message
           : data?.message;
@@ -215,7 +211,6 @@ export const colorSlice = createSlice({
       })
       .addCase(getAllColors.rejected, (state, action) => {
         const data: any = action.payload;
-        const { successs, message, ...resData } = data;
         const msg = data?.response?.data?.message
           ? data?.response?.data?.message
           : data?.message;

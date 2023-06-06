@@ -23,7 +23,7 @@ const ColorCheckbox: FC<Props> = (props) => {
   const state = useToggleState(props);
   const ref = useRef(null);
   const { inputProps } = useCheckbox(props, state, ref);
-  const { focusProps, isFocusVisible } = useFocusRing();
+  const { focusProps } = useFocusRing();
   const isSelected = state.isSelected && !props.isIndeterminate;
 
   const checkboxClassName = ` w-6 h-6 rounded-full ${
@@ -32,11 +32,11 @@ const ColorCheckbox: FC<Props> = (props) => {
       : "border border-neutral-400"
   }  `;
 
-  const labelClassName = ` select-none ${
-    props.isDisabled
-      ? "text-gray-400"
-      : "text-gray-700 group-active:text-gray-800"
-  }`;
+  // const labelClassName = ` select-none ${
+  //   props.isDisabled
+  //     ? "text-gray-400"
+  //     : "text-gray-700 group-active:text-gray-800"
+  // }`;
 
   return (
     <>

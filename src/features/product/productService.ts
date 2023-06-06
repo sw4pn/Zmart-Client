@@ -45,30 +45,33 @@ const getAllProducts = async () => {
   return response.data;
 };
 
-const addReview = async (id: string, data: ReviewType) => {
+const addReview = async (data: ReviewType) => {
+  const { id, ...restData } = data;
   const response = await axios.put(
     `${apiUrl}products/add-review/${id}`,
-    data,
+    restData,
     config
   );
 
   return response.data;
 };
 
-const updateReview = async (id, data) => {
+const updateReview = async (data: ReviewType) => {
+  const { id, ...restData } = data;
   const response = await axios.put(
     `${apiUrl}products/update-review/${id}`,
-    data,
+    restData,
     config
   );
 
   return response.data;
 };
 
-const deleteReview = async (id: string, data: ReviewType) => {
+const deleteReview = async (data: ReviewType) => {
+  const { id, ...restData } = data;
   const response = await axios.put(
     `${apiUrl}products/delete-review/${id}`,
-    data,
+    restData,
     config
   );
 

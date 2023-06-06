@@ -56,7 +56,7 @@ const getSuggestionValue = (suggestion: SearchProduct) => suggestion.title;
 // Use your imagination to render suggestions.
 const renderSuggestion = (
   suggestion: SearchProduct,
-  { query, isHighlighted }: Autosuggest.RenderSuggestionParams
+  { query }: Autosuggest.RenderSuggestionParams
 ) => {
   const thumb = suggestion.thumbnail?.url
     ? suggestion.thumbnail.url
@@ -96,6 +96,7 @@ const HeaderSearch = () => {
     event: React.FormEvent,
     { newValue }: Autosuggest.ChangeEvent
   ) => {
+    if (newValue === "xxx") console.log(event);
     setValue(newValue);
   };
 

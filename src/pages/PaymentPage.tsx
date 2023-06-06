@@ -47,8 +47,6 @@ const PaymentPage = () => {
     }
   };
 
-  const reloadPage = () => setReload(false);
-
   return (
     <Container className=" bg-neutral-50">
       <HeadTitle
