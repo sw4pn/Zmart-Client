@@ -1,2 +1,2 @@
-export const baseUrl = "http://localhost:5173/";
-export const apiUrl = "http://localhost:4000/api/";
+export const baseUrl = "https://zmart-ecom.netlify.app/";
+export const apiUrl = "http://zmart-server.netlify.app/api/";
