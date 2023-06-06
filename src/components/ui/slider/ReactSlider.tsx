@@ -1,5 +1,4 @@
-import React, {
-  memo,
+import {
   useState,
   useRef,
   useEffect,
@@ -761,11 +760,31 @@ const ReactSlider = ({
         : (event as MouseEvent).clientX;
 
       if (isTouch) {
-        document.addEventListener("touchmove", handleListSwipe as () => {});
-        document.addEventListener("touchend", handleListSwipeEnd as () => {});
+        document.addEventListener(
+          "touchmove",
+          handleListSwipe as () => {
+            //
+          }
+        );
+        document.addEventListener(
+          "touchend",
+          handleListSwipeEnd as () => {
+            //
+          }
+        );
       } else {
-        document.addEventListener("mousemove", handleListSwipe as () => {});
-        document.addEventListener("mouseup", handleListSwipeEnd as () => {});
+        document.addEventListener(
+          "mousemove",
+          handleListSwipe as () => {
+            //
+          }
+        );
+        document.addEventListener(
+          "mouseup",
+          handleListSwipeEnd as () => {
+            //
+          }
+        );
       }
     }
 
@@ -773,14 +792,18 @@ const ReactSlider = ({
       if (!disableSwipeByMouse) {
         listRef?.addEventListener(
           "mousedown",
-          handleListSwipeStart as () => {}
+          handleListSwipeStart as () => {
+            //
+          }
         );
       }
 
       if (!disableSwipeByTouch) {
         listRef?.addEventListener(
           "touchstart",
-          handleListSwipeStart as () => {},
+          handleListSwipeStart as () => {
+            //
+          },
           {
             passive: true,
           }
@@ -788,7 +811,12 @@ const ReactSlider = ({
       }
 
       if (!disableSwipeByMouse || !disableSwipeByTouch) {
-        listRef?.addEventListener("dragstart", handleListSwipeEnd as () => {});
+        listRef?.addEventListener(
+          "dragstart",
+          handleListSwipeEnd as () => {
+            //
+          }
+        );
       }
     }
 
@@ -798,18 +826,47 @@ const ReactSlider = ({
 
       listRef?.removeEventListener(
         "mousedown",
-        handleListSwipeStart as () => {}
+        handleListSwipeStart as () => {
+          //
+        }
       );
       listRef?.removeEventListener(
         "touchstart",
-        handleListSwipeStart as () => {}
+        handleListSwipeStart as () => {
+          //
+        }
       );
-      listRef?.removeEventListener("dragstart", handleListSwipeEnd as () => {});
+      listRef?.removeEventListener(
+        "dragstart",
+        handleListSwipeEnd as () => {
+          //
+        }
+      );
 
-      document.removeEventListener("mousemove", handleListSwipe as () => {});
-      document.removeEventListener("mouseup", handleListSwipeEnd as () => {});
-      document.removeEventListener("touchmove", handleListSwipe as () => {});
-      document.removeEventListener("touchend", handleListSwipeEnd as () => {});
+      document.removeEventListener(
+        "mousemove",
+        handleListSwipe as () => {
+          //
+        }
+      );
+      document.removeEventListener(
+        "mouseup",
+        handleListSwipeEnd as () => {
+          //
+        }
+      );
+      document.removeEventListener(
+        "touchmove",
+        handleListSwipe as () => {
+          //
+        }
+      );
+      document.removeEventListener(
+        "touchend",
+        handleListSwipeEnd as () => {
+          //
+        }
+      );
     };
   }, [
     infinite,
@@ -958,7 +1015,6 @@ const ReactSlider = ({
           flex: !innerMaxWidth ? `1 0` : undefined,
         }}
         ref={innerRef}>
-        {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */}
         <div
           {...itemsListProps}
           style={{
@@ -1032,7 +1088,6 @@ const ReactSlider = ({
           }).map((_item, index) => (
             <button
               type="button"
-              // eslint-disable-next-line react/no-array-index-key
               key={index}
               title={`${index}`}
               {...dotsNavBtnProps}
@@ -1059,5 +1114,3 @@ const ReactSlider = ({
 };
 
 export default ReactSlider;
-// export default memo(ReactSlider);
-// export default memo(ReactSimplyCarousel);

@@ -6,7 +6,7 @@ import Container from "../components/layouts/Container";
 import HeadTitle from "../components/HeadTitle";
 import { useFormik } from "formik";
 import { loadUser, selectAuthUser } from "../features/auth/authSlice";
-import { scrollMeTop } from "../utils/ScrollToTop";
+import scrollMeTop from "../utils/scrollMeTop";
 import CustomTextarea from "../components/ui/CustomTextarea";
 import CustomInput from "../components/ui/CustomInput";
 import Spacer from "../components/helpers/Spacer";
@@ -14,7 +14,7 @@ import { AiOutlineTags } from "react-icons/ai";
 import CustomButton from "../components/ui/CustomButton";
 import { selectCoupon, validateCoupon } from "../features/coupon/couponSlice";
 import { toast } from "react-hot-toast";
-import { Coupon } from "../types";
+import { Cart, CartItem, Coupon, OrderItems, Product } from "../types";
 import { createOrder } from "../features/order";
 
 const schema = yup.object().shape({
@@ -22,16 +22,10 @@ const schema = yup.object().shape({
   state: yup.string().required("State is required."),
   city: yup.string().required("City is required."),
   postCode: yup.string().required("Postal Code is required."),
-  //   bCountry: yup.string().required("Country is required."),
-  //   bState: yup.string().required("State is required."),
-  //   bCity: yup.string().required("City is required."),
-  //   bPostCode: yup.string().required("Postal Code is required."),
   shipping: yup
     .string()
     .required("Address is required.")
     .min(5, "Minimum 5 characters required"),
-  //   billing: yup.string().min(5, "Minimum 5 characters required"),
-  //   payMode: yup.string().required("Payment Mode is required"),
 });
 
 const SHIPPING_COST = 50;
@@ -45,7 +39,7 @@ interface CouponType {
 const Checkout = () => {
   const dispatch: any = useDispatch();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+
   const [couponCode, setCouponCode] = useState<string>("");
   const [validCoupon, setValidCoupon] = useState<CouponType>({
     valid: false,
@@ -54,8 +48,14 @@ const Checkout = () => {
   });
 
   const user = useSelector(selectAuthUser);
-  const coupon = useSelector(selectCoupon);
-  const cart = user?.cart || { products: [] };
+  const coupon = useSelector(selectCoupon) as Coupon | null;
+
+  const cart: Cart = user?.cart || {
+    products: [],
+    totalPrice: 0,
+    totalAfterDiscount: 0,
+  };
+
   const shippingPrice = cart?.totalPrice > 499 ? 0 : SHIPPING_COST;
 
   const couponDiscount = coupon?.discount ?? 0;
@@ -87,7 +87,10 @@ const Checkout = () => {
                 </span>
               </div>
               <div className="self-end pb-2 font-semibold">
-                ₹ {item?.finalPrice * item?.quantity}
+                ₹
+                {item?.finalPrice &&
+                  item?.quantity &&
+                  item.finalPrice * item.quantity}
               </div>
             </div>
           );
@@ -102,27 +105,40 @@ const Checkout = () => {
       state: user?.address?.state || "",
       city: user?.address?.city || "",
       postCode: user?.address?.postCode || "",
-      //   bCountry: user?.billing?.country || "",
-      //   bState: user?.billing?.state || "",
-      //   bCity: user?.billing?.city || "",
-      //   billing: user?.billing?.address || "",
-      //   bPostCode: user?.billing?.postCode || "",
-      //   payMode: "",
       coupon: "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      const orderItems = [];
+      const orderItems: OrderItems[] = [];
       productsArr.length > 0 &&
-        productsArr.map((item) =>
-          orderItems.push({
-            product: item.product._id,
-            price: item.finalPrice,
-            quantity: item.quantity,
-            color: item.color._id,
-            variant: item.variant,
-          })
-        );
+        productsArr.map((item) => {
+          if (
+            item &&
+            item.product &&
+            item.finalPrice &&
+            item.color &&
+            item.quantity &&
+            item.variant
+          ) {
+            orderItems.push({
+              product: item.product._id,
+              price: item.finalPrice,
+              quantity: item.quantity,
+              color: item.color._id,
+              variant: item.variant,
+            });
+          }
+        });
+
+      if (!user) {
+        toast.error("You must be logged in.");
+        return;
+      }
+
+      if (!user._id) {
+        toast.error("You must be logged in.");
+        return;
+      }
 
       const data = {
         id: user._id,
@@ -133,7 +149,7 @@ const Checkout = () => {
           state: values.state,
           country: values.country,
         },
-        orderedBy: user?._id,
+        orderedBy: user._id,
         orderItems: orderItems,
       };
 
@@ -259,7 +275,9 @@ const Checkout = () => {
                 //   className="md:max-w-[150px] uppercase "
                 className="uppercase"
                 onChange={(e) => {
-                  const val = e.target?.value.toUpperCase();
+                  const val = (
+                    e.target as HTMLInputElement
+                  ).value.toUpperCase();
                   setCouponCode(val);
                 }}
               />

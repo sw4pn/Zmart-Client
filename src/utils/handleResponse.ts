@@ -1,6 +1,6 @@
 import { toast } from "react-hot-toast";
 
-export const handleError = (err) => {
+export const handleError = (err: any) => {
   if (err.response) {
     if (err.response.status === 400) {
       toast.error(err.response.data.error);

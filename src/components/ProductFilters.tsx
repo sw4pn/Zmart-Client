@@ -14,18 +14,12 @@ const ProductFilters = ({ handleFilter }: Props) => {
     ? color
     : color !== null
     ? color.split(",")
-    : [];  
-
+    : [];
 
   // const searchColor = searchParams.get("colors");
   const searchBrand = searchParams.get("brand");
   const searchCategory = searchParams.get("category");
 
-  // const searchColors = Array.isArray(searchColor)
-  //   ? searchColor
-  //   : searchColor !== null
-  //   ? searchColor.split(",")
-  //   : [];
 
   const searchBrandArr = Array.isArray(searchBrand)
     ? searchBrand
@@ -39,8 +33,8 @@ const ProductFilters = ({ handleFilter }: Props) => {
     ? searchCategory.split(",")
     : [];
 
-  const minPrice = parseInt(searchParams.get("minPrice", 10)) || "";
-  const maxPrice = parseInt(searchParams.get("maxPrice", 10)) || "";
+  const minPrice = parseInt(searchParams.get("minPrice") || "", 10) || null;
+  const maxPrice = parseInt(searchParams.get("maxPrice") || "", 10) || null;
 
   const priceText = minPrice ? ` ₹ ${minPrice}` : "min";
   const priceOut = maxPrice ? ` ₹ ${maxPrice}` : "max";
@@ -102,7 +96,7 @@ const ProductFilters = ({ handleFilter }: Props) => {
     // ...priceFilterTags,
   ];
 
-  const handleColorChange = (item) => {
+  const handleColorChange = (item: any) => {
     const color = item.toLowerCase();
     const index = colors.indexOf(color);
     const colorValue =

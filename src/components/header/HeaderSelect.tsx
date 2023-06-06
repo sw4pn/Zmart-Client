@@ -9,8 +9,8 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface Option {
-  value: string;
-  label: string;
+  value: string | undefined;
+  label: string | undefined;
 }
 
 const HeaderSelect = () => {

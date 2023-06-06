@@ -11,7 +11,7 @@ type razorpayResponse = {
 
 const RAZORPAY_KEY = import.meta.env.RAZORPAY_KEY;
 
-function loadScript(src) {
+function loadScript(src: string) {
   return new Promise((resolve) => {
     const script = document.createElement("script");
     script.src = src;

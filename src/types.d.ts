@@ -1,21 +1,22 @@
 export type User = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  avatar: {
-    url: string;
+  _id?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  avatar?: {
+    public_id?: string;
+    url?: string;
   };
-  isActive: boolean;
-  cart: Cart;
-  role: string;
-  wishlist: Product[];
+  isActive?: boolean;
+  cart?: Cart;
+  role?: string;
+  address?: Address;
+  wishlist?: Product[];
+  orders?: number;
 };
-// color: string;
-// variant: string;
-// count: number;
-// finalPrice: number;
 
 export type Product = {
+  _id: string;
   thumbnail: {
     public_ic: string;
     url: string;
@@ -35,19 +36,42 @@ export type Product = {
   price: number;
   discount: number;
   reviews: Review[];
+  category?: Category;
+  variant?: Array<{ id?: number; title?: string }>;
+  description?: string;
+  specification?: {
+    extra: Extra;
+  };
+  extra?: Extra[];
 };
 
+interface Extra {
+  name?: string;
+  feature?: string;
+}
+
+interface Address {
+  address?: string;
+  city?: string;
+  pinCode?: string | number;
+  state?: string;
+  country?: string;
+}
+
 export interface Review {
+  _id: string;
   star: number;
-  postedBy: User;
   review: string;
+  postedBy: User;
+  date: Date;
 }
 
 export interface Category {
-  title: string;
-  imageUrl: string;
-  slug: string;
-  status: boolean;
+  _id?: string;
+  title?: string;
+  imageUrl?: string;
+  slug?: string;
+  status?: boolean;
 }
 
 export interface Brand {
@@ -58,6 +82,7 @@ export interface Brand {
 }
 
 export interface Color {
+  _id: string;
   title: string;
   value: string;
 }
@@ -79,13 +104,50 @@ export interface CartItem {
   product?: Product;
   quantity?: number;
   color?: Color;
-  variant?: string;
+  variant?: Variant | string;
   price?: number;
   finalPrice?: number;
 }
 
+type Variant = {
+  _id?: string;
+  title?: string;
+};
+
+export interface OrderItems {
+  product: string;
+  price: number;
+  quantity: number;
+  color: string;
+  variant: string;
+}
+
 export interface Order {
-  orderId: string;
+  _id?: string;
+  id?: string;
+  orderId?: string;
+  shippingInfo: Address;
+  orderItems: OrderItem[];
+  orderedBy: string;
+  orderPrice?: number;
+  taxPrice?: number;
+  status?: string;
+  paymentInfo?: PaymentInfo;
+  deliveryStatus?: string;
+  finalAmount?: number;
+  orderTime?: string;
+}
+
+interface PaymentInfo {
+  id: string;
+  status: string;
+  payTime: string;
+  razorpay: {
+    order: object;
+    razOrderId: string;
+    razPaymentId: string;
+    verified: boolean;
+  };
 }
 
 export interface Transition {

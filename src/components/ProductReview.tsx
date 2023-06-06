@@ -3,12 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { Rating } from "react-simple-star-rating";
 import { selectAuthUser } from "../features/auth/authSlice";
 import { toast } from "react-hot-toast";
-import {
-  deleteReview,
-  resetProductState,
-} from "../features/product/productSlice";
+import { deleteReview } from "../features/product/productSlice";
+import { FC } from "react";
+import { Product, Review } from "../types";
 
-const ProductReview = ({ review, product, handleReload }) => {
+interface Props {
+  review: Review;
+  product: Product;
+  handleReload: (val: boolean) => void;
+}
+
+const ProductReview: FC<Props> = ({ review, product, handleReload }) => {
   const dispatch: any = useDispatch();
   const formatDate = moment(review.date).format("DD MMM YYYY HH:mm");
 
@@ -25,9 +30,9 @@ const ProductReview = ({ review, product, handleReload }) => {
       id: productId,
       reviewId,
     };
+
     dispatch(deleteReview(data))
-      .then((res) => {
-        // dispatch(resetProductState());
+      .then((res: any) => {
         const data = res?.payload;
         if (data?.success) {
           toast.success("Review deleted successfully.");
@@ -54,12 +59,12 @@ const ProductReview = ({ review, product, handleReload }) => {
       {user?._id === authorId && (
         <div className="my-2">
           {/* <span
-            className="border py-1 px-2 mx-2 border-teal-400 text-sm hover:bg-teal-100 cursor-pointer"
+            className="px-2 py-1 mx-2 text-sm border border-teal-400 cursor-pointer hover:bg-teal-100"
             onClick={editReview}>
             Edit
           </span> */}
           <span
-            className="border py-1 px-2 mx-2 border-teal-400 text-sm hover:bg-teal-100 cursor-pointer"
+            className="px-2 py-1 mx-2 text-sm border border-teal-400 cursor-pointer hover:bg-teal-100"
             onClick={handleDelete}>
             Delete
           </span>

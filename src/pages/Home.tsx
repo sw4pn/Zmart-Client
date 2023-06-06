@@ -1,13 +1,13 @@
 import BigCards from "../components/BigCards";
 import BrandList from "../components/BrandList";
 import CategoryList from "../components/CategoryList";
-import FeaturedList from "../components/FeaturedList";
+// import FeaturedList from "../components/FeaturedList";
 import FeaturesList from "../components/FeaturesList";
 import Heading from "../components/Heading";
 import HeroSection from "../components/HeroSection";
 import PopularList from "../components/PopularList";
 import SpecialList from "../components/SpecialList";
-import ThreeBanners from "../components/ThreeBanners";
+// import ThreeBanners from "../components/ThreeBanners";
 import Spacer from "../components/helpers/Spacer";
 import Container from "../components/layouts/Container";
 
@@ -34,7 +34,10 @@ const Home = () => {
         </div>
         {/* Special Products */}
         <div className="py-10">
-          <Heading title="Special  Products" className="text-center" />
+          <Heading
+            title="Special Offers"
+            className="p-2 m-4 text-neutral-400"
+          />
           <SpecialList />
         </div>
         {/* BigCards */}
@@ -46,12 +49,15 @@ const Home = () => {
           <FeaturedList />
         </div> */}
         {/* Brands */}
-        <div className="py-10 bg-neutral-100">
+        <div className="py-10 ">
           <BrandList />
         </div>
         {/* Popular Products */}
         <div className="py-10 bg-neutral-100">
-          <Heading title="Popular Products" />
+          <Heading
+            title="Popular Products"
+            className="p-2 m-4 text-neutral-400"
+          />
           <PopularList />
         </div>
       </Container>

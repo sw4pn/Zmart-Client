@@ -21,6 +21,9 @@ import ChangePass from "../pages/ChangePass";
 import AccountEdit from "../pages/AccountEdit";
 import Checkout from "../pages/Checkout";
 import PaymentPage from "../pages/PaymentPage";
+import AccountLogin from "../components/AccountLogin";
+import AccountRegister from "../components/AccountRegister";
+import NotFound from "../components/NotFound";
 
 const MainRoutes = () => {
   return (
@@ -28,6 +31,8 @@ const MainRoutes = () => {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
+          <Route path="login" element={<AccountLogin />} />
+          <Route path="register" element={<AccountRegister />} />
           <Route path="about-us" element={<AboutPage />} />
           <Route path="refund-policy" element={<RefundPage />} />
           <Route path="privacy-policy" element={<PrivacyPage />} />
@@ -57,14 +62,8 @@ const MainRoutes = () => {
             <Route path="checkout" element={<Checkout />} />
             <Route path="payment/:id" element={<PaymentPage />} />
           </Route>
-          {/* 
-            <Route path="checkout" element={<Checkout />} />
-            <Route path="payment/:id" element={<Payment />} />
-            <Route path="complete" element={<PaymentStatus />} />
-            </Route>
-          </Route> */}
         </Route>
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

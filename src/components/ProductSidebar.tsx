@@ -11,11 +11,6 @@ import { ArrowLeft, ChevronRight } from "react-feather";
 import CustomInput from "./ui/CustomInput";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllColors, selectAllColors } from "../features/color/colorSlice";
-import {
-  getAllProducts,
-  selectProductState,
-  selectProducts,
-} from "../features/product/productSlice";
 import { getBrands, selectAllBrands } from "../features/brand/brandSlice";
 import CustomCheckbox from "./ui/CustomCheckbox";
 import {
@@ -40,8 +35,9 @@ const ProductSidebar: FC<Props> = ({
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch: any = useDispatch();
-  const minPrice = parseInt(searchParams.get("minPrice", 10)) || "";
-  const maxPrice = parseInt(searchParams.get("maxPrice", 10)) || "";
+
+  const minPrice = parseInt(searchParams.get("minPrice") || "", 10) || null;
+  const maxPrice = parseInt(searchParams.get("maxPrice") || "", 10) || null;
 
   const searchColor = searchParams.get("colors");
   const searchBrand = searchParams.get("brand");
@@ -78,7 +74,7 @@ const ProductSidebar: FC<Props> = ({
     dispatch(getAllColors());
     dispatch(getBrands());
     dispatch(getCategories());
-  }, []);
+  }, [dispatch]);
 
   const sideMenu = [
     {
@@ -96,7 +92,7 @@ const ProductSidebar: FC<Props> = ({
               value={minPrice}
               onChange={(e) => {
                 console.log("min-", minPrice, maxPrice);
-                handleFilter("minPrice", e.target.value);
+                handleFilter("minPrice", (e.target as HTMLInputElement).value);
               }}
             />
             <MdCurrencyRupee size={28} />
@@ -106,7 +102,9 @@ const ProductSidebar: FC<Props> = ({
               label="Max Price"
               min={0}
               value={maxPrice}
-              onChange={(e) => handleFilter("maxPrice", e.target.value)}
+              onChange={(e) =>
+                handleFilter("maxPrice", (e.target as HTMLInputElement).value)
+              }
             />
           </div>
         </>
@@ -179,7 +177,7 @@ const ProductSidebar: FC<Props> = ({
   }, []);
 
   const generateHeaderClass = useCallback(
-    (open, position) => {
+    (open: boolean, position: number) => {
       const background = open ? "bg-gray-300/30" : "bg-white";
       const border =
         position === sideMenuSize ? (open ? "border-b" : "") : "border-b";
@@ -190,13 +188,13 @@ const ProductSidebar: FC<Props> = ({
   );
 
   const generateBodyClass = useCallback(
-    (open, position) => {
+    (open: boolean, position: number) => {
       return position === sideMenuSize ? "" : open ? "border-b" : "";
     },
     [sideMenuSize]
   );
 
-  const handleColorChange = (item) => {
+  const handleColorChange = (item: any) => {
     const color = item.toLowerCase();
     const index = searchColors.indexOf(color);
     const colorValue =
@@ -230,7 +228,7 @@ const ProductSidebar: FC<Props> = ({
     <>
       <div className="">
         {overlay && (
-          <div className="flex justify-end mb-4 mr-4 py-2   items-center">
+          <div className="flex items-center justify-end py-2 mb-4 mr-4">
             <ArrowLeft
               size={40}
               className="cursor-pointer border rounded-full p-1.5 hover:bg-neutral-100"

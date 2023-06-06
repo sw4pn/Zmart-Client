@@ -4,39 +4,6 @@ import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiUrl } from "../../config/config";
 import { config } from "../../utils/axiosConfig";
 
-// export const onSearch = (v) => {
-//   return {
-//     type: SEARCH_CHANGE,
-//     payload: v,
-//   };
-// };
-
-// export const onSuggestionsFetchRequested = (value) => {
-//   const inputValue = value.value.trim().toLowerCase();
-
-//   return async (dispatch, getState) => {
-//     try {
-//       if (inputValue && inputValue.length % 3 === 0) {
-//         const response = await axios.get(`/api/search/${inputValue}`);
-
-//         dispatch({
-//           type: SUGGESTIONS_FETCH_REQUEST,
-//           payload: response.data.products,
-//         });
-//       }
-//     } catch (err) {
-//       handleError(err);
-//     }
-//   };
-// };
-
-// export const onSuggestionsClearRequested = (val) => {
-//   return {
-//     type: SUGGESTIONS_CLEAR_REQUEST,
-//     payload: [],
-//   };
-// };
-
 export const searchProducts = createAsyncThunk<
   searchState,
   string,

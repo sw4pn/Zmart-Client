@@ -3,7 +3,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Container from "../components/layouts/Container";
 import HeadTitle from "../components/HeadTitle";
-import LoaderUI from "../components/loaders/LoaderUI";
 import Loader from "../components/loaders/Loader";
 import { getOrder, selectOrder } from "../features/order";
 import CustomButton from "../components/ui/CustomButton";
@@ -26,14 +25,13 @@ const PaymentPage = () => {
     : "Loading...";
 
   useEffect(() => {
-    if (id || reload) {
-      console.log("...reloading page...");
+    if (id && reload) {
       dispatch(getOrder(id)).then(() => {
         setLoading(false);
         setReload(false);
       });
     }
-  }, [id, reload]);
+  }, [id, reload, dispatch]);
 
   const handlePayment = () => {
     if (order) {

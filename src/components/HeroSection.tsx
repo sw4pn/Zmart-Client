@@ -42,7 +42,7 @@ const HeroSection = () => {
         height={400}
         dots={true}
         slideImageFit="contain"
-        slideBackgroundColor="transparent"
+        slideBackgroundColor="pink"
       />
     </>
   );

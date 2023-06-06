@@ -2,7 +2,6 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import HeadTitle from "../components/HeadTitle";
 import Container from "../components/layouts/Container";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
 import Spacer from "../components/helpers/Spacer";
 import CustomModal from "../components/modals/CustomModal";
 import useCustomModal from "../hooks/modals/useCustomModal";
@@ -31,7 +30,7 @@ const menu = [
 const MyAccountPage = () => {
   const dispatch: any = useDispatch();
   const location = useLocation();
-  const [open, setOpen] = useState(false);
+
   const customModal = useCustomModal();
   const navigate = useNavigate();
 
@@ -60,10 +59,10 @@ const MyAccountPage = () => {
 
   return (
     <Container className="">
-      <HeadTitle title="My Account" className="py-10 px-10" />
+      <HeadTitle title="My Account" className="px-10 py-10" />
 
-      <div className="flex flex-col md:flex-row justify-center m-2 p-2">
-        <div className="md:w-1/3 w-full md:max-w-xs  p-4 drop-shadow-md border-2 md:border-r-0">
+      <div className="flex flex-col justify-center p-2 m-2 md:flex-row">
+        <div className="w-full p-4 border-2 md:w-1/3 md:max-w-xs drop-shadow-md md:border-r-0">
           {menuItems}
           <div
             className={`hover:bg-neutral-100
@@ -72,7 +71,7 @@ const MyAccountPage = () => {
             Logout
           </div>
         </div>
-        <div className="md:w-2/3 w-full p-4 bg-neutral-50 drop-shadow-md border-2 md:border-l-0">
+        <div className="w-full p-4 border-2 md:w-2/3 bg-neutral-50 drop-shadow-md md:border-l-0">
           <Outlet />
         </div>
       </div>

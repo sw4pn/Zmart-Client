@@ -41,7 +41,7 @@ const ChangePass = () => {
       toast.error(userMessage);
       dispatch(resetUserState());
     }
-  }, [userLoading, updated, userError, userSuccess]);
+  }, [userLoading, updated, userError, userSuccess, userMessage, dispatch]);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -64,7 +64,7 @@ const ChangePass = () => {
 
   return (
     <div className="m-4">
-      <h2 className="text-2xl text-start font-semibold pb-10 ">
+      <h2 className="pb-10 text-2xl font-semibold text-start ">
         Change Password
       </h2>
 

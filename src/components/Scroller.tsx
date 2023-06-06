@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { BiUpArrow } from "react-icons/bi";
 import ArrowUp from "../svg/ArrowUp";
+
 const Scroller = () => {
   const [isVisible, setIsVisible] = useState(false);
 

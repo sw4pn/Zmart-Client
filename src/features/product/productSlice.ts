@@ -1,6 +1,6 @@
 import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import productService from "./productService";
-import { Product, Review } from "../../types";
+import { Product } from "../../types";
 import { RootState } from "../../app/store";
 
 export const getPopularProducts = createAsyncThunk(
@@ -72,9 +72,10 @@ export const getProductByBrand = createAsyncThunk<
   }
 });
 
-interface ReviewType extends Review {
-  id: string;
-  reviewId: string;
+// interface ReviewType extends Review {
+export interface ReviewType {
+  id?: string;
+  reviewId?: string;
 }
 
 export const addReview = createAsyncThunk<

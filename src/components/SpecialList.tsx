@@ -1,5 +1,3 @@
-import React from "react";
-import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -9,8 +7,6 @@ import {
   productState,
 } from "../features/product/productSlice";
 import { useEffect } from "react";
-import SpecialCard from "./SpecialCard";
-import MultiCarousel from "./ui/MultiCarousel";
 import ProductCard from "./ProductCard";
 
 const SpecialList = () => {

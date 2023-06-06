@@ -3,15 +3,15 @@ import { selectAuthUser } from "../features/auth/authSlice";
 import { useFormik } from "formik";
 import { Product } from "../types";
 import { FC } from "react";
-import { scrollMeTop } from "../utils/ScrollToTop";
 import { Rating } from "react-simple-star-rating";
 import CustomTextarea from "./ui/CustomTextarea";
 import CustomButton from "./ui/CustomButton";
-import { addReview, resetProductState } from "../features/product/productSlice";
+import { addReview } from "../features/product/productSlice";
 import { toast } from "react-hot-toast";
 
 interface Props {
   product: Product;
+  handleReload: (val: boolean) => void;
 }
 
 const AddReview: FC<Props> = ({ product, handleReload }) => {
@@ -41,7 +41,7 @@ const AddReview: FC<Props> = ({ product, handleReload }) => {
       };
 
       dispatch(addReview(data))
-        .then((res) => {
+        .then((res: any) => {
           // dispatch(resetProductState());
           const data = res?.payload;
           if (data?.success) {
@@ -63,20 +63,20 @@ const AddReview: FC<Props> = ({ product, handleReload }) => {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <div className="py-2 px-2">
-          <span className="  font-semibold text-teal-600 flex gap-4 items-center justify-start">
+        <div className="px-2 py-2">
+          <span className="flex items-center justify-start gap-4 font-semibold text-teal-600 ">
             Rating:
             <Rating
               SVGclassName="inline-block"
               size={20}
               initialValue={0}
-              value={formik.values.star}
+              // value={formik.values.star}
               onClick={(value) => formik.setFieldValue("star", value)}
             />
           </span>
         </div>
         <div className="px-2">
-          <span className="text-sm text-neutral-400 block my-2">
+          <span className="block my-2 text-sm text-neutral-400">
             Enter Review
           </span>
           <CustomTextarea

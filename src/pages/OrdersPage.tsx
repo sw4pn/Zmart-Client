@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Container from "../components/layouts/Container";
 import HeadTitle from "../components/HeadTitle";
 import {
-  getAllOrders,
   selectOrderState,
   selectOrders,
   selectOrder,
@@ -54,8 +53,8 @@ const OrdersPage = () => {
             </div>
             <div className="flex flex-col gap-2">
               Payment Status
-              <span className="font-semibold text-teal-600 border p-1 text-center border-orange-400">
-                {order.paymentInfo.status}
+              <span className="p-1 font-semibold text-center text-teal-600 border border-orange-400">
+                {order.paymentInfo && order.paymentInfo.status}
               </span>
             </div>
             <div className="text-teal-600">
@@ -84,7 +83,7 @@ const OrdersPage = () => {
 
   useEffect(() => {
     dispatch(getUserOrders()).then(() => setLoading(false));
-  }, []);
+  }, [dispatch]);
 
   return (
     <Container className="p-4">

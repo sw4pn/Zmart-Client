@@ -25,11 +25,11 @@ const contactFormSchema = yup.object().shape({
     .max(500, "Too long message,Only 500 char. allowed."),
 });
 
-interface ContactFormValues {
-  name: string;
-  email: string;
-  message: string;
-}
+// interface ContactFormValues {
+//   name: string;
+//   email: string;
+//   message: string;
+// }
 
 const ContactPage = () => {
   const [message, setMessage] = useState("");
@@ -47,11 +47,7 @@ const ContactPage = () => {
     },
   });
 
-  const sendMail = async (values) => {
-    //
-    // TODO: implement mail send function.
-    //
-
+  const sendMail = async (values: any) => {
     await axios
       .post(`${apiUrl}auth/send-mail`, values, config)
       .then((res) => {

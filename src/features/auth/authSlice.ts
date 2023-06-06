@@ -44,18 +44,19 @@ export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   }
 });
 
-export const addToCart = createAsyncThunk(
-  "cart/add",
-  async (data, thunkAPI) => {
-    try {
-      const response = await axios.post(`${apiUrl}carts/`, data, config);
+export const addToCart = createAsyncThunk<
+  Cart,
+  CartItem,
+  { rejectValue: string }
+>("cart/add", async (data, thunkAPI) => {
+  try {
+    const response = await axios.post(`${apiUrl}carts/`, data, config);
 
-      return response.data;
-    } catch (err: any) {
-      return thunkAPI.rejectWithValue(err.response.data);
-    }
+    return response.data;
+  } catch (err: any) {
+    return thunkAPI.rejectWithValue(err.response.data);
   }
-);
+});
 
 interface CartIt extends CartItem {
   productId: string;
@@ -79,18 +80,19 @@ export const updateCart = createAsyncThunk<
   }
 });
 
-export const removeFromCart = createAsyncThunk(
-  "cart/remove",
-  async (id, thunkAPI) => {
-    try {
-      const response = await axios.delete(`${apiUrl}carts/${id}`, config);
+export const removeFromCart = createAsyncThunk<
+  Cart,
+  string,
+  { rejectValue: string }
+>("cart/remove", async (id, thunkAPI) => {
+  try {
+    const response = await axios.delete(`${apiUrl}carts/${id}`, config);
 
-      return response.data;
-    } catch (err: any) {
-      return thunkAPI.rejectWithValue(err.response.data);
-    }
+    return response.data;
+  } catch (err: any) {
+    return thunkAPI.rejectWithValue(err.response.data);
   }
-);
+});
 
 export const emptyCart = createAsyncThunk("cart/empty", async (_, thunkAPI) => {
   try {
@@ -383,7 +385,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setUser, clearUser } = authSlice.actions;
+// export const { setUser, clearUser } = authSlice.actions;
 export const selectAuthUser = (state: RootState) => state.auth.user;
 export const selectCart = (state: RootState) => state.auth.user?.cart;
 export const selectWishlist = (state: RootState) => state.auth.user?.wishlist;

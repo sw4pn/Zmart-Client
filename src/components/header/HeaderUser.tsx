@@ -1,15 +1,12 @@
 import { useSelector } from "react-redux";
-import useLoginModal from "../../hooks/modals/useLoginModal";
-import useRegisterModal from "../../hooks/modals/useRegisterModal";
-import LoginModal from "../modals/LoginModal";
-import RegisterModal from "../modals/RegisterModal";
 import { RootState } from "../../app/store";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthState } from "../../features/auth/authSlice";
 
 const HeaderUser = () => {
-  const loginModal = useLoginModal();
-  const registerModal = useRegisterModal();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const nextLocation = location.pathname;
 
   const authState = useSelector<RootState, AuthState>((state) => state.auth);
 
@@ -27,17 +24,16 @@ const HeaderUser = () => {
       ) : (
         <>
           <div
-            onClick={loginModal.onOpen}
+            // onClick={loginModal.onOpen}
+            onClick={() => navigate("/login", { state: nextLocation })}
             className="cursor-pointer hover:opacity-60">
             Login
           </div>
           <div
-            onClick={registerModal.onOpen}
+            onClick={() => navigate("/register", { state: nextLocation })}
             className="cursor-pointer hover:opacity-60">
             Register
           </div>
-          <LoginModal />
-          <RegisterModal />
         </>
       )}
     </>

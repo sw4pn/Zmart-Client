@@ -17,7 +17,7 @@ const WishlistPage = () => {
   const total = wishlist && wishlist?.length > 0 ? wishlist?.length : 0;
 
   const removeFromWishlist = (id: string) => {
-    dispatch(toggleWishlist(id)).then(() => setReload(true));
+    dispatch(toggleWishlist({ productId: id })).then(() => setReload(true));
   };
 
   useEffect(() => {
@@ -25,12 +25,12 @@ const WishlistPage = () => {
       dispatch(loadUser());
       setReload(false);
     }
-  }, [reload]);
+  }, [reload, dispatch]);
 
   return (
     <Container className="p-4 sm:p-10">
-      <HeadTitle title="Wishlist" className="pb-10 pt-4" />
-      <div className="flex justify-center gap-6 lg:gap-10 flex-wrap py-10">
+      <HeadTitle title="Wishlist" className="pt-4 pb-10" />
+      <div className="flex flex-wrap justify-center gap-6 py-10 lg:gap-10">
         {total > 0 ? (
           wishlist?.map((product, index) => (
             <ProductMini

@@ -3,12 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useSearchParams } from "react-router-dom";
 import HeadTitle from "../components/HeadTitle";
 import Container from "../components/layouts/Container";
-import {
-  Accordion,
-  AccordionBody,
-  AccordionHeader,
-  AccordionItem,
-} from "../components/ui/Accordion";
 import ProductSidebar from "../components/ProductSidebar";
 import {
   getAllProducts,
@@ -24,9 +18,8 @@ import Spacer from "../components/helpers/Spacer";
 import useMediaQuery from "../hooks/useMediqQuery";
 import { AiOutlineMinus } from "react-icons/ai";
 import CustomPagination from "../components/CustomPagination";
-import { sortArray, truncateTitle } from "../utils/utils";
-import { MdClose } from "react-icons/md";
-import { scrollMeTop } from "../utils/ScrollToTop";
+import { sortArray } from "../utils/utils";
+import scrollMeTop from "../utils/scrollMeTop";
 import CustomButton from "../components/ui/CustomButton";
 
 const sortOptions = [
@@ -37,13 +30,6 @@ const sortOptions = [
   { value: "price-hl", label: "High to Low, Price" },
   { value: "date-new", label: "Recent First, Date" },
   { value: "date-old", label: "Oldest First, Date" },
-];
-
-const itemsPerPageOptions = [
-  { value: "5", label: "5 items" },
-  { value: "10", label: "10 items" },
-  { value: "15", label: "15 items" },
-  { value: "20", label: "20 items" },
 ];
 
 const columnIcons = [
@@ -69,7 +55,6 @@ const ProductsPage = () => {
   const dispatch: any = useDispatch();
   const location = useLocation();
   const [colCount, setColCount] = useState(3);
-  const [showFilter, setShowFilter] = useState(false);
   const [perPage, setPerPage] = useState({ value: 10, label: "10 items" });
   const [overlay, setOverlay] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -86,13 +71,16 @@ const ProductsPage = () => {
       : "All products";
 
   const sort = searchParams.get("sort") || "best";
-  const minPrice = parseInt(searchParams.get("minPrice", 10)) || "";
-  const maxPrice = parseInt(searchParams.get("maxPrice", 10)) || "";
+
+  const minPrice = parseInt(searchParams.get("minPrice") || "", 10) || null;
+  const maxPrice = parseInt(searchParams.get("maxPrice") || "", 10) || null;
+
   const searchColor = searchParams.get("colors");
 
   const sortBy = sortOptions.find((option) => option.value === sort);
 
-  let currentPage = parseInt(searchParams.get("page", 10) || 1);
+  let currentPage = parseInt(searchParams.get("page") || "1", 10);
+
   currentPage = currentPage < 1 ? 1 : currentPage;
 
   const products = useSelector(selectProducts);
@@ -106,23 +94,22 @@ const ProductsPage = () => {
     } else {
       dispatch(getAllProducts());
     }
-  }, [pageType, location]);
+  }, [pageType, location, dispatch, slug]);
 
   /*  sort the array */
   /*** Filter array  ***/
   let sortedArr = sortArray(productsArr, sort);
 
-  if (Number.isInteger(minPrice)) {
+  if (Number.isInteger(minPrice as number)) {
     sortedArr =
-      //@ts-ignore
-      minPrice > 0
+      minPrice && minPrice > 0
         ? sortedArr.filter((product) => product.price > minPrice)
         : sortedArr;
   }
-  if (Number.isInteger(maxPrice)) {
+
+  if (Number.isInteger(maxPrice as number)) {
     sortedArr =
-      //@ts-ignore
-      maxPrice > 0
+      maxPrice && maxPrice > 0
         ? sortedArr.filter((product) => product.price < maxPrice)
         : sortedArr;
   }
@@ -130,16 +117,10 @@ const ProductsPage = () => {
   if (searchColor && searchColor !== "") {
     const colorValues = searchColor.split(",");
 
-    sortedArr = sortedArr.filter(
-      (product) =>
-        product.color.some((color) => colorValues.includes(color.title))
-      // product.color.some((color) => color.title === searchColor)
+    sortedArr = sortedArr.filter((product) =>
+      product.color.some((color: any) => colorValues.includes(color.title))
     );
-    //   const filteredArr = sortedArr.filter((product) =>
-    //   product.color.some((color) => color.title === "silver")
-    // );
   }
-  // sortedArr.map((product) => console.log(product.color.title));
 
   const gridCount = isLargeScreen
     ? colCount
@@ -190,19 +171,19 @@ const ProductsPage = () => {
     setColCount(col);
   };
 
-  const handleSort = (item) => {
-    setSearchParams((params) => {
-      params.set("sort", item.value);
-      return params;
-    });
-  };
+  // const handleSort = (item) => {
+  //   setSearchParams((params) => {
+  //     params.set("sort", item.value);
+  //     return params;
+  //   });
+  // };
 
-  const handlePageChange = (page) => {
-    setSearchParams((params) => {
-      params.set("page", page);
-      return params;
-    });
-  };
+  // const handlePageChange = (page) => {
+  //   setSearchParams((params) => {
+  //     params.set("page", page);
+  //     return params;
+  //   });
+  // };
 
   const handleFilterChange = (key: any, value: any) => {
     setSearchParams((searchParams) => {
@@ -289,7 +270,7 @@ const ProductsPage = () => {
                   isRtl={false}
                   isSearchable={false}
                   name="items-per-page"
-                  onChange={(item) => setPerPage(item)}
+                  onChange={(item) => item && setPerPage(item)}
                   options={[
                     { value: 5, label: "5 items" },
                     { value: 10, label: "10 items" },

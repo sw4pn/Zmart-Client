@@ -1,5 +1,4 @@
-import { FC, HTMLInputTypeAttribute } from "react";
-import { FormikErrors } from "formik/dist/types";
+import { FC, ReactNode } from "react";
 
 interface Props extends React.HTMLProps<HTMLInputElement> {
   id: string;
@@ -9,17 +8,19 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
   formatPrice?: boolean;
   required?: boolean;
   className?: string;
-  value?: string | number;
   autoComplete?: string;
+  value?: string | number | undefined;
   //   register: UseFormRegister<FieldValues>;
-  errors?:
-    | FormikErrors<any>[]
-    | FormikErrors<any>
-    | string[]
-    | string
-    | false
-    | undefined;
+  errors?: ReactNode;
 }
+
+// errors?:
+//   | FormikErrors<any>[]
+//   | FormikErrors<any>
+//   | string[]
+//   | string
+//   | false
+//   | undefined;
 
 const CustomInput: FC<Props> = ({
   label,
@@ -58,14 +59,3 @@ const CustomInput: FC<Props> = ({
 };
 
 export default CustomInput;
-/* input:focus ~ label,
-input:not(:placeholder-shown) ~ label {
-  @apply transform;
-  @apply scale-75;
-  @apply -translate-y-6;
-}
-
-input:focus ~ label {
-  @apply text-black;
-  @apply left-0;
-} */

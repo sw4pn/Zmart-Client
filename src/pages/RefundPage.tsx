@@ -54,7 +54,7 @@ const RefundPage = () => {
   return (
     <>
       <Container className="p-4 sm:p-10">
-        <HeadTitle title="Refund Policy" className="pb-10 pt-4" />
+        <HeadTitle title="Refund Policy" className="pt-4 pb-10" />
         <div className="">{HTMLReactParser(data.content)}</div>
       </Container>
     </>

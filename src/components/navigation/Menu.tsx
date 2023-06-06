@@ -2,11 +2,7 @@ import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { categoryState } from "../../features/category/categorySlice";
-import { Link, useNavigate } from "react-router-dom";
-import useLoginModal from "../../hooks/modals/useLoginModal";
-import useRegisterModal from "../../hooks/modals/useRegisterModal";
-import LoginModal from "../modals/LoginModal";
-import RegisterModal from "../modals/RegisterModal";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../../features/auth/authSlice";
 
 import { selectIsAuthenticated } from "../../features/auth/authSlice";
@@ -18,13 +14,13 @@ interface Props {
 
 const Menu: FC<Props> = ({ show, toggle }) => {
   const dispatch: any = useDispatch();
-  const loginModal = useLoginModal();
-  const registerModal = useRegisterModal();
+  const location = useLocation();
   const navigate = useNavigate();
 
   const logoutMe = () => {
     dispatch(logout()).then(() => {
       toast.success("You are successfully logged out.");
+      toggle();
       navigate("/");
     });
   };
@@ -46,7 +42,9 @@ const Menu: FC<Props> = ({ show, toggle }) => {
       <li
         key={i}
         className="py-1 text-lg font-semibold font-rubik hover:opacity-70">
-        <Link to={category.slug}>{category.title}</Link>
+        <Link to={`/category/${category.slug}`} onClick={toggle}>
+          {category.title}
+        </Link>
       </li>
     );
   });
@@ -64,7 +62,9 @@ const Menu: FC<Props> = ({ show, toggle }) => {
                 className="py-1 text-lg font-semibold cursor-pointer text-neutral-600 font-rubik hover:opacity-70"
                 // onClick={loginModal.onOpen}
               >
-                <Link to="/my-account">My Account</Link>
+                <Link to="/my-account" onClick={toggle}>
+                  My Account
+                </Link>
               </li>
               <li
                 className="py-1 text-lg font-semibold cursor-pointer text-neutral-600 font-rubik hover:opacity-70"
@@ -76,12 +76,18 @@ const Menu: FC<Props> = ({ show, toggle }) => {
             <>
               <li
                 className="py-1 text-lg font-semibold cursor-pointer text-neutral-600 font-rubik hover:opacity-70"
-                onClick={loginModal.onOpen}>
+                onClick={() => {
+                  toggle();
+                  navigate("/login", { state: location.pathname });
+                }}>
                 Login
               </li>
               <li
                 className="py-1 text-lg font-semibold cursor-pointer text-neutral-600 font-rubik hover:opacity-70"
-                onClick={registerModal.onOpen}>
+                onClick={() => {
+                  toggle();
+                  navigate("/register", { state: location.pathname });
+                }}>
                 Register
               </li>
             </>
@@ -92,8 +98,6 @@ const Menu: FC<Props> = ({ show, toggle }) => {
         </div>
         <ul className="text-neutral-700">{categoryList}</ul>
       </nav>
-      <LoginModal />
-      <RegisterModal />
     </div>
   );
 };

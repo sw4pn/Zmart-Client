@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from "react";
+import { FC, useRef } from "react";
 import { useToggleState } from "@react-stately/toggle";
 import { useCheckbox } from "@react-aria/checkbox";
 import { VisuallyHidden } from "@react-aria/visually-hidden";

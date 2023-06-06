@@ -1,29 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import {
-  getAllOrders,
-  getOrder,
-  selectOrder,
-  selectOrderState,
-  selectOrders,
-} from "../features/order";
+import { Link, useParams } from "react-router-dom";
+import { getOrder, selectOrder } from "../features/order";
 import { useEffect, useState } from "react";
 import Container from "../components/layouts/Container";
 import HeadTitle from "../components/HeadTitle";
 import moment from "moment";
 import Spacer from "../components/helpers/Spacer";
-import { AiFillBackward, AiFillCaretLeft } from "react-icons/ai";
+import { AiFillCaretLeft } from "react-icons/ai";
 
 const OrderPage = () => {
   const dispatch: any = useDispatch();
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
   const order = useSelector(selectOrder);
 
   useEffect(() => {
-    dispatch(getOrder(id)).then(() => setLoading(false));
+    if (id) dispatch(getOrder(id)).then(() => setLoading(false));
   }, []);
 
   const orderTime = order
@@ -96,7 +89,7 @@ const OrderPage = () => {
           <div className="py-2">
             Payment Status:
             <span className="pl-4 font-semibold text-teal-600">
-              {order?.paymentInfo.status && (
+              {order?.paymentInfo && order?.paymentInfo.status && (
                 <>
                   {order?.paymentInfo.status}
 

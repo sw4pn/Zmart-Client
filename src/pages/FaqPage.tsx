@@ -44,11 +44,11 @@ const FaqPage = () => {
   const faqData = questions?.map((item, i) => {
     return (
       <AccordionItem key={i} className="w-full border">
-        <AccordionHeader className="w-full text-start font-semibold text-gray-600 p-4">
+        <AccordionHeader className="w-full p-4 font-semibold text-gray-600 text-start">
           <div className="">{item.title}</div>
         </AccordionHeader>
         <AccordionBody>
-          <div className="bg-neutral-50 p-8">{item.content}</div>
+          <div className="p-8 bg-neutral-50">{item.content}</div>
         </AccordionBody>
       </AccordionItem>
     );
@@ -56,7 +56,7 @@ const FaqPage = () => {
 
   return (
     <Container className="p-4 sm:p-10">
-      <HeadTitle title="Frequently Asked Question's" className="pb-10 pt-4" />
+      <HeadTitle title="Frequently Asked Question's" className="pt-4 pb-10" />
       <div className="bg-neutral-100">
         <Accordion>{faqData}</Accordion>
       </div>

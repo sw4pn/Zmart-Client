@@ -44,27 +44,29 @@ export const getAUser = createAsyncThunk(
   }
 );
 
-export const updateAUser = createAsyncThunk(
-  "users/updateAUser",
-  async (user, thunkAPI) => {
-    try {
-      return await userService.updateAUser(user);
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
-    }
+export const updateAUser = createAsyncThunk<
+  User,
+  User,
+  { rejectValue: string }
+>("users/updateAUser", async (user, thunkAPI) => {
+  try {
+    return await userService.updateAUser(user);
+  } catch (err: any) {
+    return thunkAPI.rejectWithValue(err.response.data);
   }
-);
+});
 
-export const changePassword = createAsyncThunk(
-  "users/changePassword",
-  async (data, thunkAPI) => {
-    try {
-      return await userService.changePassword(data);
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
-    }
+export const changePassword = createAsyncThunk<
+  User,
+  { password: string; newPassword: string },
+  { rejectValue: string }
+>("users/changePassword", async (data, thunkAPI) => {
+  try {
+    return await userService.changePassword(data);
+  } catch (err: any) {
+    return thunkAPI.rejectWithValue(err.response.data);
   }
-);
+});
 
 export const deleteUser = createAsyncThunk(
   "users/deleteUser",

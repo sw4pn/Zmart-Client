@@ -49,13 +49,26 @@ const numZ = (data: Array<any>, prop: string) => {
 // sort date a to z
 
 const dateA = (data: Array<any>, prop: string) => {
-  return data.sort((a, b) => new Date(a[prop]) - new Date(b[prop]));
+  return data.sort((a, b) => {
+    const dateA = new Date(a[prop] as any);
+    const dateB = new Date(b[prop] as any);
+
+    return dateA.getTime() - dateB.getTime();
+  });
 };
 
 // sort date z to a
 
-const dateZ = (data: Array<any>, prop: string) => {
-  return data.sort((a, b) => new Date(b[prop]) - new Date(a[prop]));
+const dateZ = <T extends Record<string, any>>(
+  data: T[],
+  prop: keyof T
+): T[] => {
+  return data.sort((a, b) => {
+    const dateA = new Date(b[prop] as any);
+    const dateB = new Date(a[prop] as any);
+
+    return dateB.getTime() - dateA.getTime();
+  });
 };
 
 const sorter = {

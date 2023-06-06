@@ -1,7 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { FC, useState } from "react";
 import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
-import { HiArrowRight } from "react-icons/hi";
 import LoaderContent from "./loaders/LoaderContent";
 
 interface Props {
@@ -50,7 +49,7 @@ const ProductImage: FC<Props> = ({ images, loading }) => {
     <div className="border select-none">
       {!loading && images ? (
         <>
-          <div className="  mx-auto flex flex-col justify-between gap-4  ">
+          <div className="flex flex-col justify-between gap-4 mx-auto ">
             <AnimatePresence initial={false} mode="wait">
               <motion.img
                 src={images[index].url}
@@ -87,7 +86,7 @@ const ProductImage: FC<Props> = ({ images, loading }) => {
                   <img
                     src={item.url}
                     alt="preview"
-                    className="w-full h-full object-contain p-2 cursor-pointer"
+                    className="object-contain w-full h-full p-2 cursor-pointer"
                   />
                 </div>
               ))}

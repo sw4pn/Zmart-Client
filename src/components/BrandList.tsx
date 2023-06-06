@@ -31,7 +31,7 @@ const BrandList = () => {
 
   return (
     <div className="p-2 mx-2 bg-gray-50 rounded-xl">
-      <h2 className="text-center text-gray-400"> Supported Brands </h2>
+      <h2 className="pb-4 text-center text-gray-400"> Supported Brands </h2>
       <Marquee speed={20}>{brandList}</Marquee>
     </div>
   );

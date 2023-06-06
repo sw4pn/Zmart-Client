@@ -15,8 +15,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import LoginModal from "./modals/LoginModal";
 import RegisterModal from "./modals/RegisterModal";
-import useLoginModal from "../hooks/modals/useLoginModal";
-import useRegisterModal from "../hooks/modals/useRegisterModal";
 
 interface Props {
   product: Product;
@@ -26,8 +24,6 @@ interface Props {
 const SpecialCard: FC<Props> = ({ product, className }) => {
   const [reload, setReload] = useState(false);
   const dispatch: any = useDispatch();
-  const loginModal = useLoginModal();
-  const registerModal = useRegisterModal();
   const navigate = useNavigate();
   const { thumbnail, title, brand, price, discount, rating, slug } = product;
 
@@ -62,7 +58,11 @@ const SpecialCard: FC<Props> = ({ product, className }) => {
     const productId = product._id;
 
     const color = product.color[0];
-    const variant = product.variant[0]?.title ? product.variant[0]?.title : "";
+    const variant =
+      product.variant && product.variant[0]?.title
+        ? product.variant[0]?.title
+        : "";
+
     const finalPrice =
       product.discount > 0
         ? Math.ceil(product.price * (discount / 100))
@@ -85,18 +85,16 @@ const SpecialCard: FC<Props> = ({ product, className }) => {
       dispatch(loadUser());
       setReload(false);
     }
-  }, [reload]);
+  }, [reload, dispatch]);
 
-  const handleWishlist = (id) => {
+  const handleWishlist = (id: string) => {
     if (user) {
-      dispatch(toggleWishlist(id)).then(() => setReload(true));
+      dispatch(toggleWishlist({ productId: id })).then(() => setReload(true));
     } else {
-      loginModal.onOpen();
+      navigate("/login");
     }
   };
 
-  // <div className="relative flex flex-col w-3/4 bg-white border group sm:max-w-sm sm:flex-row">
-  // carousel-item text-center relative w-64 h-64 snap-start
   return (
     <div className="relative text-center bg-white border group sm:max-w-sm ">
       <div className="flex flex-col bg-white border group sm:flex-row">
@@ -155,13 +153,6 @@ const SpecialCard: FC<Props> = ({ product, className }) => {
             )}
           </div>
         </div>
-        {!user && (
-          <>
-            <LoginModal />
-            <RegisterModal />
-          </>
-        )}
-        {/* </div> */}
       </div>
     </div>
   );

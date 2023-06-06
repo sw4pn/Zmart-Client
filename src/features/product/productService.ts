@@ -1,6 +1,7 @@
 import axios from "axios";
 import { apiUrl } from "../../config/config";
 import { config } from "../../utils/axiosConfig";
+import { ReviewType } from "./productSlice";
 
 const popularProducts = async () => {
   const response = await axios.get(`${apiUrl}products/popular`, config);
@@ -44,7 +45,7 @@ const getAllProducts = async () => {
   return response.data;
 };
 
-const addReview = async (id, data) => {
+const addReview = async (id: string, data: ReviewType) => {
   const response = await axios.put(
     `${apiUrl}products/add-review/${id}`,
     data,
@@ -64,8 +65,7 @@ const updateReview = async (id, data) => {
   return response.data;
 };
 
-const deleteReview = async (id, data) => {
-  
+const deleteReview = async (id: string, data: ReviewType) => {
   const response = await axios.put(
     `${apiUrl}products/delete-review/${id}`,
     data,

@@ -1,16 +1,6 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 
-// image: "/images/big_laptop.jpg",
-// isLink: true,
-// link: "/category/laptops",
-// dark: true,
-// isText: true,
-// text: {
-//   category: "laptops",
-//   title: "MacBook Pro",
-//   text: "Supercharged by M2 Pro and M2 Max",
-// },
 interface Props {
   product: {
     image: string;

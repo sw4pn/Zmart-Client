@@ -1,4 +1,3 @@
-import React from "react";
 import BigCard from "./BigCard";
 
 const data = [

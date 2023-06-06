@@ -2,7 +2,7 @@ import axios from "axios";
 import { apiUrl } from "../../config/config";
 import { config } from "../../utils/axiosConfig";
 
-const addCategory = async (data) => {
+const addCategory = async (data: any) => {
   const response = await axios.post(`${apiUrl}categories/`, data, config);
 
   return response.data;
@@ -26,7 +26,7 @@ const getACategory = async (id: string) => {
   return response.data;
 };
 
-const updateACategory = async (data) => {
+const updateACategory = async (data: any) => {
   const response = await axios.put(
     `${apiUrl}categories/${data.id}`,
     data,
@@ -37,7 +37,7 @@ const updateACategory = async (data) => {
 };
 
 const deleteACategory = async (id) => {
-  const response = await axios.delete(`${baseUrl}categories/${id}`, config);
+  const response = await axios.delete(`${apiUrl}categories/${id}`, config);
 
   return response.data;
 };

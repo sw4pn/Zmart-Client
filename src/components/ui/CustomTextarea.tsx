@@ -1,5 +1,4 @@
-import { FormikErrors } from "formik";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 interface Props {
   id: string;
   className?: string;
@@ -8,13 +7,14 @@ interface Props {
   cols?: number;
   value?: string;
   onChange?: (event: any) => void;
-  errors?:
-    | FormikErrors<any>[]
-    | FormikErrors<any>
-    | string[]
-    | string
-    | false
-    | undefined;
+  // errors?:
+  //   | FormikErrors<any>[]
+  //   | FormikErrors<any>
+  //   | string[]
+  //   | string
+  //   | false
+  //   | undefined;
+  errors?: ReactNode;
 }
 
 const CustomTextarea: FC<Props> = ({

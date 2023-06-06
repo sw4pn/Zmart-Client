@@ -13,13 +13,7 @@ import {
   selectCart,
   toggleWishlist,
 } from "../features/auth/authSlice";
-import { resetProductState } from "../features/product/productSlice";
 import { stripHTML, truncateTitle } from "../utils/utils";
-import HTMLReactParser from "html-react-parser";
-import useLoginModal from "../hooks/modals/useLoginModal";
-import useRegisterModal from "../hooks/modals/useRegisterModal";
-import LoginModal from "./modals/LoginModal";
-import RegisterModal from "./modals/RegisterModal";
 
 interface Props {
   product: Product;
@@ -30,8 +24,6 @@ const ProductCard: FC<Props> = ({ product, grid }) => {
   const dispatch: any = useDispatch();
   const [reload, setReload] = useState(false);
   const navigate = useNavigate();
-  const loginModal = useLoginModal();
-  const registerModal = useRegisterModal();
   const { thumbnail, title, brand, price, discount, rating, slug } = product;
 
   const cart = useSelector(selectCart);
@@ -45,7 +37,8 @@ const ProductCard: FC<Props> = ({ product, grid }) => {
     (item) => item.product?._id?.toString() === product._id.toString()
   );
 
-  const desc = grid === 0 ? truncateTitle(product.description, 200) : "";
+  const desc =
+    grid === 0 ? truncateTitle(String(product?.description), 200) : "";
   const discountedPrice =
     discount > 0 ? Math.ceil(price * (discount / 100)) : Math.ceil(price);
   const productPrice =
@@ -62,7 +55,11 @@ const ProductCard: FC<Props> = ({ product, grid }) => {
 
   const handleAddToCart = () => {
     const color = product.color[0];
-    const variant = product.variant[0]?.title ? product.variant[0]?.title : "";
+    const variant =
+      product.variant && product.variant[0]?.title
+        ? product.variant[0]?.title
+        : "";
+
     const finalPrice =
       product.discount > 0
         ? Math.ceil(product.price * (discount / 100))
@@ -87,11 +84,11 @@ const ProductCard: FC<Props> = ({ product, grid }) => {
     }
   }, [reload]);
 
-  const handleWishlist = (id) => {
+  const handleWishlist = (id: string) => {
     if (user) {
-      dispatch(toggleWishlist(id)).then(() => setReload(true));
+      dispatch(toggleWishlist({ productId: id })).then(() => setReload(true));
     } else {
-      loginModal.onOpen();
+      navigate("/login?auth=0");
     }
   };
 
@@ -134,7 +131,7 @@ const ProductCard: FC<Props> = ({ product, grid }) => {
             />
           </div>
           {grid === 0 && (
-            <div className="text-neutral-400 py-2">{stripHTML(desc)}</div>
+            <div className="py-2 text-neutral-400">{stripHTML(desc)}</div>
           )}
           <Spacer size={40} />
           <div className="flex flex-wrap items-center gap-2 py-2 text-sm">
@@ -159,12 +156,6 @@ const ProductCard: FC<Props> = ({ product, grid }) => {
           </div>
         </div>
       </div>
-      {!user && (
-        <>
-          <LoginModal />
-          <RegisterModal />
-        </>
-      )}
     </>
   );
 };

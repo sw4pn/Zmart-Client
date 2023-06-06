@@ -1,6 +1,7 @@
 import { FC } from "react";
 interface Props {
   id: string;
+  label?: string;
   type?: string;
   disabled?: boolean;
   formatPrice?: boolean;

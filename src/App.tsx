@@ -40,17 +40,7 @@ function App() {
         serverActive ? (
           <>
             <RouteHandler />
-            <Toaster
-              position="top-right"
-              // autoClose={750}
-              // hideProgressBar={false}
-              // newestOnTop={true}
-              // closeOnClick
-              // rtl={false}
-              // pauseOnFocusLoss
-              // draggable
-              // theme={theme}
-            />
+            <Toaster position="top-right" />
           </>
         ) : (
           <ServerError />

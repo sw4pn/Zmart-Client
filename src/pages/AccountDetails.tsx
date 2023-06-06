@@ -11,10 +11,10 @@ const AccountDetails = () => {
 
   return (
     <>
-      <div className="flex justify-start items-center gap-4">
+      <div className="flex items-center justify-start gap-4">
         <img src={thumb} alt="profile" className="w-24 h-24" />
         <div className="">
-          <span className="capitalize block my-2">
+          <span className="block my-2 capitalize">
             {user?.firstName + " " + user?.lastName}
           </span>
           <span className="block mb-4">{user?.email}</span>
@@ -28,12 +28,12 @@ const AccountDetails = () => {
       </div>
       <div className="p-4">
         <div className="">
-          <p className="text-gray-900 inline-block mr-3"> Wishlist: </p>
+          <p className="inline-block mr-3 text-gray-900"> Wishlist: </p>
           {user?.wishlist ? user.wishlist?.length : 0} products
         </div>
         <div className="">
-          <p className="text-gray-900 inline-block mr-3"> Cart: </p>
-          {user.cart ? user.cart?.products?.length : 0} products
+          <p className="inline-block mr-3 text-gray-900"> Cart: </p>
+          {user?.cart ? user.cart?.products?.length : 0} products
         </div>
       </div>
 
@@ -43,10 +43,10 @@ const AccountDetails = () => {
           {user?.address ? (
             <address className="py-2">
               {user?.address?.address}
-              <span className="py-2 block">
+              <span className="block py-2">
                 {user.address.city}, {user.address.postCode}
               </span>
-              <span className="py-2 block">
+              <span className="block py-2">
                 {user.address.state}, {user.address.country}
               </span>
             </address>
@@ -55,7 +55,7 @@ const AccountDetails = () => {
               Address not available, Please
               <Link
                 to="/my-account/edit"
-                className="text-green-600 hover:underline px-2">
+                className="px-2 text-green-600 hover:underline">
                 Add
               </Link>
               your address.

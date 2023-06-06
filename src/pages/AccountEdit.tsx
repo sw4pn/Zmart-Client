@@ -17,7 +17,7 @@ import { RootState } from "../app/store";
 import CustomFileInput from "../components/ui/CustomFileInput";
 import { apiUrl } from "../config/config";
 import axios from "axios";
-import { config, fileConfig } from "../utils/axiosConfig";
+import { fileConfig } from "../utils/axiosConfig";
 
 const schema = yup.object().shape({
   email: yup
@@ -58,7 +58,7 @@ const AccountEdit = () => {
     }
     dispatch(resetUserState());
     dispatch(loadUser());
-  }, [updated, userLoading, userError, userSuccess]);
+  }, [updated, userLoading, userError, userSuccess, dispatch, userMessage]);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -149,12 +149,12 @@ const AccountEdit = () => {
 
   return (
     <div className="m-4">
-      <h2 className="text-2xl text-start font-semibold ">Edit Details</h2>
+      <h2 className="text-2xl font-semibold text-start ">Edit Details</h2>
 
       <div className="max-w-md">
         <form onSubmit={formik.handleSubmit}>
           <div className="mb-2">Upload Picture:</div>
-          <div className="flex justify-start items-center pt-4 pb-10">
+          <div className="flex items-center justify-start pt-4 pb-10">
             {thumb && (
               <img
                 src={thumb}
@@ -172,7 +172,7 @@ const AccountEdit = () => {
               type="file"
             />
           </div>
-          <div className="flex justify-start items-center gap-4">
+          <div className="flex items-center justify-start gap-4">
             <CustomInput
               id="edit-firstName"
               label="First Name"

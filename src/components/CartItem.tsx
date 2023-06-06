@@ -8,6 +8,7 @@ import {
   updateCart,
 } from "../features/auth/authSlice";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 interface Props {
   item: CartItem;
@@ -18,12 +19,18 @@ const CartItem: FC<Props> = ({ item }) => {
   const dispatch: any = useDispatch();
   const product = item.product;
 
-  const thumb = product.thumbnail?.url
-    ? product.thumbnail.url
-    : "/images/product-sample.jpg";
-  const totalPrice = item.finalPrice * item.quantity;
+  const thumb =
+    product && product.thumbnail?.url
+      ? product.thumbnail.url
+      : "/images/product-sample.jpg";
+  const totalPrice =
+    item.finalPrice && item.quantity && item.finalPrice * item.quantity;
 
   const handleCart = (qty: number) => {
+    if (!product) {
+      toast.error("No product available");
+      return;
+    }
     const data = {
       productId: product._id,
       quantity: qty,
@@ -33,6 +40,10 @@ const CartItem: FC<Props> = ({ item }) => {
   };
 
   const deleteCartItem = () => {
+    if (!product) {
+      toast.error("No product available");
+      return;
+    }
     const cartId = product._id;
 
     dispatch(removeFromCart(cartId)).then(() => setLoadCart(true));
@@ -53,23 +64,25 @@ const CartItem: FC<Props> = ({ item }) => {
           <div className="flex flex-col gap-2">
             <h4 className="font-semibold">
               <Link
-                to={`/product/${product.slug}`}
+                to={`/product/${product && product.slug}`}
                 className="hover:opacity-70">
-                {product.title}
+                {product && product.title}
               </Link>
             </h4>
             <div className="text-sm text-neutral-400">
-              {item.color.title && <>Color: {item.color.title}</>}
+              {item.color && <>Color: {item.color.title}</>}
             </div>
             <span className="text-sm text-neutral-400">
-              {item.variant.title && <> {item.variant.title}</>}
+              {typeof item.variant === "object" && item.variant.title && (
+                <> {item.variant.title}</>
+              )}
             </span>
           </div>
           <div className="flex items-center self-center gap-2 ml-auto mr-10">
             <span className="text-neutral-400">Price</span>
             <span className="text-sm line-through text-neutral-500">
               ₹{item.price}
-            </span>{" "}
+            </span>
             ₹ {item.finalPrice}
           </div>
         </div>
@@ -77,15 +90,19 @@ const CartItem: FC<Props> = ({ item }) => {
           <div className="flex items-center justify-center gap-2">
             <button
               className="w-8 h-8 m-2 font-bold border rounded-full cursor-pointer hover:bg-neutral-100 border-neutral-300 disabled:bg-neutral-100 disabled:text-neutral-400"
-              disabled={item.quantity <= 1}
-              onClick={() => handleCart(item.quantity - 1)}>
+              disabled={!!item.quantity && item.quantity <= 1}
+              onClick={() => {
+                if (item.quantity) handleCart(item.quantity - 1);
+              }}>
               -
             </button>
             <span className="text-neutral-400">Qty: </span> {item.quantity}
             <button
               className="w-8 h-8 m-2 font-bold border rounded-full cursor-pointer hover:bg-neutral-100 border-neutral-300 disabled:bg-neutral-100 disabled:text-neutral-400"
-              disabled={item.quantity > 50}
-              onClick={() => handleCart(item.quantity + 1)}>
+              disabled={!!item.quantity && item.quantity > 50}
+              onClick={() => {
+                if (item.quantity) handleCart(item.quantity + 1);
+              }}>
               +
             </button>
           </div>

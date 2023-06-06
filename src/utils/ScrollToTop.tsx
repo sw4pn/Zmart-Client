@@ -1,13 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-
-export const scrollMeTop = () => {
-  window.scrollTo({
-    top: 0,
-    left: 0,
-    behavior: "smooth",
-  });
-};
+import scrollMeTop from "./scrollMeTop";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();

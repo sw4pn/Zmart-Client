@@ -34,7 +34,7 @@ const CustomModal: FC<Props> = ({
     <Modal
       loading={loading}
       disabled={disabled}
-      //   title={title}
+      title={title}
       actionLabel={actionLabel}
       secondaryActionLabel={secondLabel}
       secondaryAction={onCancel}

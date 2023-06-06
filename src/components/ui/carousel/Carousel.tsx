@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React from "react";
 import { useState, useEffect, FC } from "react";
 import Swipe from "react-easy-swipe";
 import { Link } from "react-router-dom";

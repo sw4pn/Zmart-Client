@@ -3,17 +3,17 @@ import { Category } from "../../types";
 import categoryService from "./categoryService";
 import { RootState } from "../../app/store";
 
-// export const registerUser = createAsyncThunk<
-//   User,
-//   regUser,
-//   { rejectValue: string }
-// >("user/registerUser", async (data, thunkAPI) => {
-//   try {
-//     return await userService.createUser(data);
-//   } catch (err: any) {
-//     return thunkAPI.rejectWithValue(err.response.data);
-//   }
-// });
+export const addCategory = createAsyncThunk<
+  Category,
+  Category,
+  { rejectValue: string }
+>("user/registerUser", async (data, thunkAPI) => {
+  try {
+    return await categoryService.addCategory(data);
+  } catch (err: any) {
+    return thunkAPI.rejectWithValue(err.response.data);
+  }
+});
 
 export const getCategories = createAsyncThunk(
   "categories/getAll",

@@ -616,7 +616,7 @@ const data = {
 const TermsPage = () => {
   return (
     <Container className="p-4 sm:p-10">
-      <HeadTitle title="Terms Of Service" className="pb-10 pt-4" />
+      <HeadTitle title="Terms Of Service" className="pt-4 pb-10" />
 
       <div className="text-sm text-gray-400">Last modified on {data.date}</div>
       <div className="">{HTMLReactParser(data.content)}</div>

@@ -3,18 +3,6 @@ import { Brand } from "../../types";
 import brandService from "./brandService";
 import { RootState } from "../../app/store";
 
-// export const registerUser = createAsyncThunk<
-//   User,
-//   regUser,
-//   { rejectValue: string }
-// >("user/registerUser", async (data, thunkAPI) => {
-//   try {
-//     return await userService.createUser(data);
-//   } catch (err: any) {
-//     return thunkAPI.rejectWithValue(err.response.data);
-//   }
-// });
-
 export const getBrands = createAsyncThunk(
   "brands/getAll",
   async (_, thunkAPI) => {

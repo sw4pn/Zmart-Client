@@ -1,41 +1,14 @@
-import { ChangeEvent, FC, FormEvent, useState } from "react";
+import { FC, useState } from "react";
 import AutosuggestHighlightMatch from "autosuggest-highlight/match";
 import AutosuggestHighlightParse from "autosuggest-highlight/parse";
-import Autosuggest, {
-  ChangeEvent as AutosuggestChangeEvent,
-} from "react-autosuggest";
-import { useDispatch, useSelector } from "react-redux";
+import Autosuggest from "react-autosuggest";
+import { useDispatch } from "react-redux";
 import {
   SearchProduct,
   resetSearchState,
   searchProducts,
-  selectSearchProducts,
 } from "../../features/search";
 import { Link } from "react-router-dom";
-
-interface Language {
-  title: string;
-  year: number;
-}
-
-const languages: Language[] = [
-  {
-    title: "C",
-    year: 1972,
-  },
-  {
-    title: "Elm",
-    year: 2012,
-  },
-  {
-    title: "Catch",
-    year: 2012,
-  },
-  {
-    title: "Not welcome here",
-    year: 2012,
-  },
-];
 
 interface BoldNameProps {
   suggestion: {
@@ -64,17 +37,16 @@ const BoldName: FC<BoldNameProps> = ({ suggestion, query }) => {
 };
 
 // Teach Autosuggest how to calculate suggestions for any given input value.
-const getSuggestions = (value: string) => {
-  const inputValue = value.trim().toLowerCase();
-  const inputLength = inputValue.length;
+// const getSuggestions = (value: string) => {
+//   const inputValue = value.trim().toLowerCase();
+//   const inputLength = inputValue.length;
 
-  console.log("getting suggestions...");
-  return inputLength === 0
-    ? []
-    : languages.filter(
-        (lang) => lang.title.toLowerCase().slice(0, inputLength) === inputValue
-      );
-};
+//   return inputLength === 0
+//     ? []
+//     : languages.filter(
+//         (lang) => lang.title.toLowerCase().slice(0, inputLength) === inputValue
+//       );
+// };
 
 // When suggestion is clicked, Autosuggest needs to populate the input
 // based on the clicked suggestion. Teach Autosuggest how to calculate the
@@ -141,17 +113,9 @@ const HeaderSearch = () => {
           if (data && data.length > 0) {
             setSuggestions(data);
           }
-          // if (
-          //   value.length > 3 &&
-          //   res.payload.message === "No product found." &&
-          //   val.length > 3
-          // ) {
-          //   setSuggestions([{ title: "No product found." }]);
-          // }
         })
         .catch(() => setSuggestions([]));
     }
-    // setSuggestions(getSuggestions(value));
   };
 
   // Autosuggest will call this function every time you need to clear suggestions.
@@ -186,8 +150,5 @@ const HeaderSearch = () => {
     </div>
   );
 };
-
-// className="w-full py-2 pl-10 pr-1 border rounded-md focus:outline-none lg:focus:ring-2 focus:ring-1 focus:ring-orange-600 lg:border-none border-neutral-300"
-// placeholder="Search..."
 
 export default HeaderSearch;

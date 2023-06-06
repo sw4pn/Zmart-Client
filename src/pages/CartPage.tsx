@@ -18,19 +18,11 @@ const CartPage = () => {
 
   const subtotal = cart?.totalPrice;
 
-  // const savings = cart.totalPrice - subtotal;
-
   return (
     <Container className="">
       <HeadTitle title="Cart" className="px-10 py-10" />
 
       <div className="px-10">
-        {/* <div className="grid grid-cols-2 sm:grid-cols-4 ">
-          <div className="">Product</div>
-          <div className="">Price</div>
-          <div className="">Quantity</div>
-          <div className="">Total</div>
-        </div> */}
         {cartItems}
 
         <div className="py-10">

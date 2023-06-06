@@ -1,13 +1,15 @@
 import { Rating } from "react-simple-star-rating";
 import LoaderContent from "./loaders/LoaderContent";
-const ReviewStats = ({ reviews }) => {
+import { Review } from "../types";
+
+const ReviewStats = ({ reviews }: { reviews: Review[] }) => {
   if (!reviews || reviews.length === 0) return <LoaderContent />;
 
-  const stats = [];
+  const stats: JSX.Element[] = [];
 
   Array(5)
     .fill(null)
-    .map((item, i) => {
+    .map((i) => {
       const count =
         reviews.length > 0
           ? reviews.filter((item) => item.star === i + 1).length
