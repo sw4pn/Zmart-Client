@@ -3,7 +3,6 @@ import { FC, useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import CustomButton from "./ui/CustomButton";
 import { Rating } from "react-simple-star-rating";
-import Spacer from "./helpers/Spacer";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
