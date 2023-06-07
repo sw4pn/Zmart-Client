@@ -90,7 +90,7 @@ const ProductCard: FC<Props> = ({ product, grid }) => {
 
   const handleWishlist = (id: string) => {
     if (user) {
-      dispatch(toggleWishlist({ productId: id })).then((res) => {
+      dispatch(toggleWishlist({ productId: id })).then((res: any) => {
         const data = res.payload;
         if (data.success) {
           toast.success(data.message);
