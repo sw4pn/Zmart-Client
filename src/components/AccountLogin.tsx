@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import CustomButton from "./ui/CustomButton";
 import { toast } from "react-hot-toast";
+import { saveStorage } from "../utils/axiosConfig";
 
 const schema = yup.object().shape({
   email: yup.string().required("Required").email("Invalid email id"),
@@ -55,6 +56,7 @@ const AccountLogin = () => {
           setMessage(response.message);
           if (response.success && response.token) {
             toast.success(response.message);
+            saveStorage(response.token);
             navigate(nextLocation);
           } else {
             toast.error(response.message);
