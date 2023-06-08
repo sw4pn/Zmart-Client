@@ -213,7 +213,9 @@ const ProductPage = () => {
       finalPrice,
     };
 
-    dispatch(addToCart(data)).then(() => dispatch(loadUser()));
+    dispatch(addToCart(data)).then(() => {
+      dispatch(loadUser()).then(() => setReload(true));
+    });
   };
 
   return (
