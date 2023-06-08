@@ -7,6 +7,7 @@ import CustomModal from "../components/modals/CustomModal";
 import useCustomModal from "../hooks/modals/useCustomModal";
 import { toast } from "react-hot-toast";
 import { logout } from "../features/auth/authSlice";
+import { removeStorage } from "../utils/axiosConfig";
 
 const menu = [
   {
@@ -52,6 +53,7 @@ const MyAccountPage = () => {
   const logoutMe = () => {
     dispatch(logout()).then(() => {
       toast.success("You are successfully logged out.");
+      removeStorage();
       customModal.onClose();
       navigate("/");
     });

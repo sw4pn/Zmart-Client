@@ -25,3 +25,7 @@ export const fileConfig = {
 export const saveStorage = (token: string) => {
   return localStorage.setItem("accessToken", token);
 };
+
+export const removeStorage = () => {
+  return localStorage.removeItem("accessToken");
+};

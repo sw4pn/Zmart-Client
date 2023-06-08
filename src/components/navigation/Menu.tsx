@@ -7,6 +7,7 @@ import { logout } from "../../features/auth/authSlice";
 
 import { selectIsAuthenticated } from "../../features/auth/authSlice";
 import { toast } from "react-hot-toast";
+import { removeStorage } from "../../utils/axiosConfig";
 interface Props {
   show?: boolean;
   toggle: () => void;
@@ -20,6 +21,7 @@ const Menu: FC<Props> = ({ toggle }) => {
   const logoutMe = () => {
     dispatch(logout()).then(() => {
       toast.success("You are successfully logged out.");
+      removeStorage();
       toggle();
       navigate("/");
     });
