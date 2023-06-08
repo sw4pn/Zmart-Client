@@ -165,7 +165,13 @@ const ProductCard: FC<Props> = ({ product, grid }) => {
                 title="Add To Cart"
                 className="max-w-[260px] !bg-orange-300 !border rounded-none hover:bg-neutral-100 hover:border-orange-700"
                 outline
-                onClick={() => handleAddToCart()}
+                onClick={() => {
+                  if (user) {
+                    handleAddToCart();
+                  } else {
+                    toast.error("Please login to your account.");
+                  }
+                }}
               />
             )}
           </div>
