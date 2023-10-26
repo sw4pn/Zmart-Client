@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import RouteHandler from "./routes/RouteHandler";
-import ServerError from "./components/ServerError";
+// import ServerError from "./components/ServerError";
 import LoaderUI from "./components/loaders/LoaderUI";
 import { useDispatch } from "react-redux";
 import { loadUser } from "./features/auth/authSlice";
 import { Dispatch } from "@reduxjs/toolkit";
-import { connectError } from "./utils/utils";
+// import { connectError } from "./utils/utils";
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(true);
