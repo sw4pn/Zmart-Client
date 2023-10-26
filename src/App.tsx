@@ -34,7 +34,7 @@ function App() {
 
   return (
     <>
-      {isLoaded ? (
+      {!isLoaded ? (
         <>
           <RouteHandler />
           <Toaster position="top-right" />
