@@ -9,25 +9,23 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { connectError } from "./utils/utils";
 
 function App() {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [serverActive, setServerActive] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(true);
   const dispatch: Dispatch<any> = useDispatch();
 
   useEffect(() => {
-    // check if connected to backend.
     const fetchUser = async () => {
       try {
-        const action: any = await dispatch(loadUser());
+        await dispatch(loadUser());
 
-        action
-          ? connectError(action?.error?.code)
-            ? setServerActive(false)
-            : setServerActive(true)
-          : setServerActive(false);
+        // action
+        //   ? connectError(action?.error?.code)
+        //     ? setServerActive(false)
+        //     : setServerActive(true)
+        //   : setServerActive(false);
       } catch (error) {
-        setServerActive(false);
+        // setServerActive(false);
       } finally {
-        setIsLoaded(true);
+        setIsLoaded(false);
       }
     };
 
@@ -37,14 +35,10 @@ function App() {
   return (
     <>
       {isLoaded ? (
-        serverActive ? (
-          <>
-            <RouteHandler />
-            <Toaster position="top-right" />
-          </>
-        ) : (
-          <ServerError />
-        )
+        <>
+          <RouteHandler />
+          <Toaster position="top-right" />
+        </>
       ) : (
         <LoaderUI />
       )}
