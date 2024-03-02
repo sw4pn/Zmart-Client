@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from "react";
+import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import RouteHandler from "./routes/RouteHandler";
 // import ServerError from "./components/ServerError";
