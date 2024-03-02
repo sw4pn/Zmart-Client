@@ -20,7 +20,7 @@ const Header = () => {
               <img
                 src="/images/zmart-logo-dark.png"
                 alt="zmart-logo"
-                className="w-20 h-auto lg:w-28 lg:h-12"
+                className="w-20"
               />
             </Link>
 

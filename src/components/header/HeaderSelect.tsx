@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Select, { SingleValue, StylesConfig } from "react-select";
 import { RootState } from "../../app/store";
 import {
@@ -7,6 +7,7 @@ import {
 } from "../../features/category/categorySlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../app/hooks";
 
 interface Option {
   value: string | undefined;
@@ -14,7 +15,7 @@ interface Option {
 }
 
 const HeaderSelect = () => {
-  const dispatch: any = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const categoryState = useSelector<RootState, categoryState>(
